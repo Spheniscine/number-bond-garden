@@ -1,11 +1,15 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn HexBox(style: Option<String>) -> Element {
+pub fn HexBox() -> Element {
     rsx! {
         div {
-            class: "hexagon",
-            style,
+            style: "display: flex; justify-content: center; align-items: center; height: 20rem; aspect-ratio: 1.15470053838;",
+            div {
+                class: "hexagon",
+                style: "height: 96%; width: 96%",
+            }
         }
+        
     }
 }

@@ -48,7 +48,7 @@ body {
     text-decoration: none;
     margin-top: 4rem;
     margin: 2rem 0rem;
-    border: white 0.2rem solid;
+    border: white 0.5rem solid;
     border-radius: 1rem;
     padding: 2rem;
 }
@@ -65,5 +65,6 @@ body {
 
 .hexagon {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    aspect-ratio: 1.15470053838; /* 2 / sqrt(3): ratio of a flat-top hexagon */
+    background: #0f0;
+    /*aspect-ratio: 1.15470053838;*/ /* 2 / sqrt(3): ratio of a flat-top hexagon */
 }

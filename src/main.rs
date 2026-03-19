@@ -31,10 +31,8 @@ pub fn Hero() -> Element {
     rsx! {
         div {
             id: "hero",
-            HexBox {
-                style: "background: #0f0; height: 20rem;",
-            },
-            
+            HexBox {},
+            // "a",
             // img { src: HEADER_SVG, id: "header" }
             div { id: "links",
                 a { href: "https://dioxuslabs.com/learn/0.7/", "📚 Learn Dioxus" }
