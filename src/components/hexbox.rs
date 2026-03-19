@@ -10,8 +10,8 @@ pub fn HexBox(
 ) -> Element {
     rsx! {
         div {
-            class: "flex items-center justify-center",
             style: "position: absolute; left: {pos.x}rem; top: {-pos.y}rem;
+            display: grid; place-items: center; 
             width: {size.x}rem; height: {size.y}rem;",
             div {
                 class: "hexagon",
