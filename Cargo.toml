@@ -8,10 +8,22 @@ edition = "2021"
 
 [dependencies]
 const-css-minify = "1.0.0"
-dioxus = { version = "0.7.1", features = [] }
+dioxus = { version = "0.6.3", features = [] }
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
