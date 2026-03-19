@@ -24,7 +24,7 @@ body {
 
 #hero {
     position: relative;
-    background-color: #300;
+    background-color: #020;
     margin: 0;
     aspect-ratio: 9 / 16;
     width: 100rem;
@@ -61,4 +61,9 @@ body {
 #header {
     width: 100rem;
     /* max-width: 240rem; */
+}
+
+.hexagon {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    aspect-ratio: 1.15470053838; /* 2 / sqrt(3): ratio of a flat-top hexagon */
 }

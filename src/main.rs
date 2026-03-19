@@ -1,5 +1,9 @@
 use dioxus::prelude::*;
 
+use crate::components::HexBox;
+
+mod components;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const HEADER_SVG: Asset = asset!("/assets/header.svg");
 
@@ -27,7 +31,11 @@ pub fn Hero() -> Element {
     rsx! {
         div {
             id: "hero",
-            img { src: HEADER_SVG, id: "header" }
+            HexBox {
+                style: "background: #0f0; height: 20rem;",
+            },
+            
+            // img { src: HEADER_SVG, id: "header" }
             div { id: "links",
                 a { href: "https://dioxuslabs.com/learn/0.7/", "📚 Learn Dioxus" }
                 a { href: "https://dioxuslabs.com/awesome", "🚀 Awesome Dioxus" }
