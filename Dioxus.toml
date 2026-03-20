@@ -1,9 +1,13 @@
 [application]
 
+# `build` & `serve` dist path
+platform = "web"
+
 [web.app]
+base_path = "number-bond-garden"
 
 # HTML title tag content
-title = "number-bond-garden"
+title = "Number Bond Garden"
 
 # include `assets` in web platform
 [web.resource]

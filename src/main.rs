@@ -5,7 +5,7 @@ use crate::components::HexGrid;
 mod components;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
-const HEADER_SVG: Asset = asset!("/assets/header.svg");
+// const HEADER_SVG: Asset = asset!("/assets/header.svg");
 
 // string inclusion is used to prevent FOUC;
 
