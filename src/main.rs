@@ -2,6 +2,8 @@ use dioxus::prelude::*;
 
 use crate::components::HexGrid;
 
+mod utils;
+mod game;
 mod components;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");

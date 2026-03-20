@@ -2726,6 +2726,7 @@ dependencies = [
  "dioxus",
  "hexx",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
