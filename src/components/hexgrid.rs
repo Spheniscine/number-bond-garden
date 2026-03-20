@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use hexx::{EdgeDirection, GridEdge, Hex, HexBounds, HexLayout, HexOrientation, Vec2};
+use hexx::{Hex, HexBounds, HexLayout, HexOrientation, Vec2};
 
 use crate::components::HexBox;
 
