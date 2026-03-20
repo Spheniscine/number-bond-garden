@@ -10,7 +10,7 @@ pub fn HexGrid() -> Element {
 
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
-        origin: Vec2 { x: 50., y: -56. },
+        origin: Vec2 { x: 50., y: 56. },
         scale: Vec2 { x: 7., y: 7. },
     };
 
@@ -18,14 +18,15 @@ pub fn HexGrid() -> Element {
     let half_size = size / 2.;
     let boxes = bounds.all_coords().map(|hex| {
         let p = layout.hex_to_world_pos(hex);
-        Vec2 { x: p.x - half_size.x, y: p.y + half_size.y }
+        (p - half_size, hex)
     });
 
     rsx! {
-        for v in boxes {
+        for (v, hex) in boxes {
             HexBox {
                 pos: v,
                 size,
+                hex,
             }
         }
     }
