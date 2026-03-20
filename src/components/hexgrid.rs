@@ -10,14 +10,15 @@ pub fn HexGrid() -> Element {
 
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
-        origin: Vec2 { x: 50., y: -47. },
+        origin: Vec2 { x: 50., y: -56. },
         scale: Vec2 { x: 7., y: 7. },
     };
 
     let size = layout.rect_size();
+    let half_size = size / 2.;
     let boxes = bounds.all_coords().map(|hex| {
-        let [p, q] = layout.edge_coordinates(GridEdge { origin: hex, direction: EdgeDirection::FLAT_NORTH_WEST });
-        Vec2 { x: p.x, y: q.y }
+        let p = layout.hex_to_world_pos(hex);
+        Vec2 { x: p.x - half_size.x, y: p.y + half_size.y }
     });
 
     rsx! {
