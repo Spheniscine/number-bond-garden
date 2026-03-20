@@ -7,7 +7,9 @@ mod components;
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const HEADER_SVG: Asset = asset!("/assets/header.svg");
 
-// string inclusion is used to prevent FOUC
+// string inclusion is used to prevent FOUC;
+
+// const _RAND_RECOMPILE: u64 = 0x4a2a5cf9126cd711; // comment and uncomment to force recompilation
 const MAIN_CSS: &str = const_css_minify::minify!("../assets/main.css");
 const TAILWIND_CSS: &str = const_css_minify::minify!("../assets/tailwind.css");
 
