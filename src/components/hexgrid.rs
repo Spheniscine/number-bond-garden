@@ -1,11 +1,13 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexBounds, HexLayout, HexOrientation, Vec2};
 
-use crate::components::HexBox;
+use crate::{components::HexBox, game::BOARD_RADIUS};
 
 #[component]
-pub fn HexGrid() -> Element {
-    let radius = 4;
+pub fn HexGrid(
+    #[props(default = BOARD_RADIUS)]
+    radius: u32,
+) -> Element {
     let bounds = HexBounds::new(Hex::ORIGIN, radius);
 
     let layout = HexLayout {
@@ -21,12 +23,15 @@ pub fn HexGrid() -> Element {
         (p - half_size, hex)
     });
 
+    let mut test_orbs = std::iter::repeat(0..=10).flatten().map(|x| Some(x).take_if(|x| *x != 0));
+
     rsx! {
         for (v, hex) in boxes {
             HexBox {
                 pos: v,
                 size,
                 hex,
+                content: test_orbs.next().flatten()
             }
         }
     }

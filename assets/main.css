@@ -6,6 +6,11 @@ html {
     font-size: min(1vw, 0.5625vh);
 }
 
+.select-none {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body {
     background-color: #0f1116;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -67,4 +72,13 @@ body {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     background: #AB9F7E;
     /*aspect-ratio: 1.15470053838;*/ /* 2 / sqrt(3): ratio of a flat-top hexagon */
+}
+
+@font-face {
+    font-family: KaTeX_Main;
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/fonts/KaTeX_Main-Regular.woff2) format("woff2"),
+        url(https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/fonts/KaTeX_Main-Regular.woff) format("woff"),
+        url(https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/fonts/KaTeX_Main-Regular.ttf) format("truetype");
 }

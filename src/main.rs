@@ -13,7 +13,7 @@ const FAVICON: Asset = asset!("/assets/favicon.ico");
 
 // const _RAND_RECOMPILE: u64 = 0x4a2a5cf9126cd711; // comment and uncomment to force recompilation
 const MAIN_CSS: &str = const_css_minify::minify!("../assets/main.css");
-const TAILWIND_CSS: &str = const_css_minify::minify!("../assets/tailwind.css");
+// const TAILWIND_CSS: &str = const_css_minify::minify!("../assets/tailwind.css");
 
 fn main() {
     dioxus::launch(App);
@@ -24,7 +24,7 @@ fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Style { {MAIN_CSS} }
-        document::Style { {TAILWIND_CSS} }
+        // document::Style { {TAILWIND_CSS} }
         Hero {}
 
     }
@@ -35,6 +35,7 @@ pub fn Hero() -> Element {
     rsx! {
         div {
             id: "hero",
+            class: "select-none",
 
             HexGrid {
 

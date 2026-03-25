@@ -1,5 +1,5 @@
 // colors assigned to each number, and the contrasting text color. 
-const ORB_COLORS: [(&str, &str); 11] = [
+pub const ORB_COLORS: [(&str, &str); 11] = [
     ("#aaaaaa", "#000"), // 0, unused
     ("#da1918", "#fff"), // 1
     ("#f4641d", "#000"), // 2
@@ -12,3 +12,5 @@ const ORB_COLORS: [(&str, &str); 11] = [
     ("#dddddd", "#000"), // 9
     ("#966919", "#fff"), // 10
 ];
+
+pub const BOARD_RADIUS: u32 = 4;

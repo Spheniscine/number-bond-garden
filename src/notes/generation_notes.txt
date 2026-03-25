@@ -1,0 +1,2 @@
+For 2-way symmetry: limit hexes picked to those where (x, y) > (0, 0).
+For 3-way symmetry: limit hexes picked to those where x >= 0 && y < 0
