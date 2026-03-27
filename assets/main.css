@@ -74,6 +74,12 @@ body {
     /*aspect-ratio: 1.15470053838;*/ /* 2 / sqrt(3): ratio of a flat-top hexagon */
 }
 
+.selected {
+    /* filter: drop-shadow(0 0 2rem #fff); */
+    border: 0.5rem solid #fff;
+    box-shadow: 0 0 0.5rem 0.5rem #fff;
+}
+
 @font-face {
     font-family: KaTeX_Main;
     font-style: normal;
