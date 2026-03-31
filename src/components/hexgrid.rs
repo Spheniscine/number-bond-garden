@@ -1,15 +1,12 @@
 use dioxus::prelude::*;
-use hexx::{Hex, HexBounds, HexLayout, HexOrientation, Vec2};
-use rand::RngExt;
-
-use crate::{components::HexBox, game::BOARD_RADIUS};
+use hexx::{HexLayout, HexOrientation, Vec2};
+use crate::{components::HexBox, game::Board};
 
 #[component]
 pub fn HexGrid(
-    #[props(default = BOARD_RADIUS)]
-    radius: u32,
+    board: Board
 ) -> Element {
-    let bounds = HexBounds::new(Hex::ORIGIN, radius);
+    let bounds = board.inner.bounds();
 
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
@@ -24,19 +21,13 @@ pub fn HexGrid(
         (p - half_size, hex)
     });
 
-    let rng = &mut rand::rng();
-    let mut test_orbs = std::iter::from_fn(|| {
-        let x = rng.random_range(0u8 ..= 10);
-        Some(Some(x).take_if(|x| *x != 0))
-    });
-
     rsx! {
         for (v, hex) in boxes {
             HexBox {
                 pos: v,
                 size,
                 hex,
-                content: test_orbs.next().flatten()
+                content: board[hex]
             }
         }
     }

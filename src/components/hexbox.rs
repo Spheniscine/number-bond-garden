@@ -27,7 +27,7 @@ pub fn HexBox(
                 
                 if let Some(((bg_color, text_color), content)) = colors_and_content {
                     div {
-                        class: if (hex.x, hex.y) == (0, 0) {"selected"} else {""},
+                        // class: if (hex.x, hex.y) == (0, 0) {"selected"} else {""},
                         style: "height: 80%; aspect-ratio: 1; border-radius: 50%; 
                         background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;",
                         "{content}",

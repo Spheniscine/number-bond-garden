@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::HexGrid;
+use crate::{components::HexGrid, game::GameState};
 
 mod utils;
 mod game;
@@ -32,13 +32,15 @@ fn App() -> Element {
 
 #[component]
 pub fn Hero() -> Element {
+    let state = GameState::test_gen();
+
     rsx! {
         div {
             id: "hero",
             class: "select-none",
 
             HexGrid {
-
+                board: state.board
             }
             // "a",
             // img { src: HEADER_SVG, id: "header" }

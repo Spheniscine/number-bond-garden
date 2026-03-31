@@ -14,3 +14,4 @@ pub const ORB_COLORS: [(&str, &str); 11] = [
 ];
 
 pub const BOARD_RADIUS: u32 = 4;
+pub const NUM_ORBS: usize = 37;
