@@ -78,13 +78,21 @@ impl Board {
         })
     }
 
+    fn is_free_pattern(pattern: &HexagonalMap<bool>, hex: Hex) -> bool {
+        Self::is_free_inner(hex, |hex| pattern.get(hex).copied().unwrap_or(false))
+    }
+
+    pub fn is_free(&self, hex: Hex) -> bool {
+        Self::is_free_inner(hex, |hex| self.inner.get(hex).copied().flatten().is_some())
+    }
+
     pub fn _pattern_stats(n: i32) -> [i32; NUM_ORBS + 1] {
         let mut ans = [0; NUM_ORBS + 1];
         
         for _ in 0..n {
             let pattern = Self::generate_pattern();
             let active_count = pattern.bounds().all_coords().filter(|&hex| {
-                Self::is_free_inner(hex, |hex| pattern.get(hex).copied().unwrap_or(false))
+                Self::is_free_pattern(&pattern, hex)
             }).count();
             ans[active_count] += 1;
         }
@@ -107,9 +115,7 @@ impl Board {
 
     pub fn count_free(&self) -> usize {
         self.inner.bounds().all_coords().filter(|&hex| {
-            Self::is_free_inner(hex, |hex| {
-                self.inner.get(hex).copied().flatten().is_some()
-            })
+            self.is_free(hex)
         }).count()
     }
 }
