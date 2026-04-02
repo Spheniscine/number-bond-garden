@@ -69,6 +69,7 @@ impl Board {
             }
         }
 
+        pattern[Hex::ORIGIN] = true;
         pattern
     }
 
