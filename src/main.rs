@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::HexGrid, game::{Board, GameState}};
+use crate::{components::HexGrid, game::GameState};
 
 mod utils;
 mod game;
