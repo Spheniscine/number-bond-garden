@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::HexGrid, game::GameState};
+use crate::{components::HexGrid, game::{Board, GameState}};
 
 mod utils;
 mod game;
@@ -21,6 +21,8 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    // tracing::info!("{:?}", Board::_pattern_stats(1_000_000));
+
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Style { {MAIN_CSS} }
@@ -33,6 +35,7 @@ fn App() -> Element {
 #[component]
 pub fn Hero() -> Element {
     let state = GameState::test_gen();
+    tracing::info!("Number of free orbs: {:?}", state.board.count_free());
 
     rsx! {
         div {

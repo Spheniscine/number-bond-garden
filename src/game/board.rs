@@ -33,7 +33,7 @@ impl PartialEq for Board {
 impl Eq for Board {}
 
 impl Board {
-    pub fn test_gen() -> Self {
+    pub fn generate_pattern() -> HexagonalMap<bool> {
         let mut pattern = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |_| false);
         let rng = &mut rand::rng();
 
@@ -67,6 +67,35 @@ impl Board {
             }
         }
 
+        pattern
+    }
+
+    fn is_free_inner(hex: Hex, is_filled: impl Fn(Hex) -> bool) -> bool {
+        if !is_filled(hex) { return false; }
+        let neighbors_filled = hex.all_neighbors().map(|nb| is_filled(nb));
+        (0..6).any(|i| {
+            (i .. i+3).all(|j| !neighbors_filled[j % 6])
+        })
+    }
+
+    pub fn _pattern_stats(n: i32) -> [i32; NUM_ORBS + 1] {
+        let mut ans = [0; NUM_ORBS + 1];
+        
+        for _ in 0..n {
+            let pattern = Self::generate_pattern();
+            let active_count = pattern.bounds().all_coords().filter(|&hex| {
+                Self::is_free_inner(hex, |hex| pattern.get(hex).copied().unwrap_or(false))
+            }).count();
+            ans[active_count] += 1;
+        }
+
+        ans
+    }
+
+    pub fn test_gen() -> Self {
+        let rng = &mut rand::rng();
+        let pattern = Self::generate_pattern();
+
         // TODO: randomly fill for now, doesn't yet guarantee valid boards
         let mut board = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |i| {
             if pattern[i] { Some(rng.random_range(1..=9)) } else { None }
@@ -74,5 +103,13 @@ impl Board {
         board[Hex::ORIGIN] = Some(10);
 
         Board { inner: board }
+    }
+
+    pub fn count_free(&self) -> usize {
+        self.inner.bounds().all_coords().filter(|&hex| {
+            Self::is_free_inner(hex, |hex| {
+                self.inner.get(hex).copied().flatten().is_some()
+            })
+        }).count()
     }
 }
