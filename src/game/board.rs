@@ -4,7 +4,9 @@ use hexx::{Hex, storage::{HexStore, HexagonalMap}};
 use rand::{RngExt, seq::SliceRandom};
 use serde::{Deserialize, Serialize};
 
-use crate::game::{BOARD_RADIUS, NUM_ORBS};
+use crate::game::{BOARD_RADIUS, INITIAL_FREE_ORB_RANGE, NUM_DUPES, NUM_ORBS};
+
+type IndexSet<T> = indexmap::IndexSet<T>;
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct Board {
@@ -100,17 +102,67 @@ impl Board {
         ans
     }
 
+    fn free_hexes_in_pattern(pattern: &HexagonalMap<bool>) -> IndexSet<Hex> {
+        pattern.bounds().all_coords().filter(|&hex| {
+            Self::is_free_pattern(&pattern, hex)
+        }).collect()
+    }
+
     pub fn test_gen() -> Self {
         let rng = &mut rand::rng();
-        let pattern = Self::generate_pattern();
+        'gen: loop {
+            let mut pattern = Self::generate_pattern();
+            let mut free = Self::free_hexes_in_pattern(&pattern);
+            if !INITIAL_FREE_ORB_RANGE.contains(&free.len()) { continue; }
 
-        // TODO: randomly fill for now, doesn't yet guarantee valid boards
-        let mut board = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |i| {
-            if pattern[i] { Some(rng.random_range(1..=9)) } else { None }
-        });
-        board[Hex::ORIGIN] = Some(10);
+            const _: () = assert!(NUM_DUPES % 2 == 0);
+            let mut pool = std::iter::repeat((1u8 ..= 4).map(|i| [i, 10 - i]))
+                .take(NUM_DUPES).flatten()
+                .chain(
+                    std::iter::repeat([5, 5]).take(NUM_DUPES / 2)
+                ).collect::<Vec<_>>();
+            
+            pool.shuffle(rng);
 
-        Board { inner: board }
+            let mut board = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |_| { None });
+            loop {
+                if free.swap_remove(&Hex::ORIGIN) {
+                    pattern[Hex::ORIGIN] = false;
+                    for hex in Hex::ORIGIN.all_neighbors() {
+                        if Self::is_free_pattern(&pattern, hex) { free.insert(hex); }
+                    }
+                }
+
+                let Some(orbs) = pool.pop() else {break};
+
+                if free.len() < 2 {
+                    tracing::info!("Shouldn't happen: free orbs < 2 when generating orbs");
+                    continue 'gen;
+                }
+
+                let a = free.swap_remove_index(rng.random_range(0 .. free.len())).unwrap();
+                let b = free.swap_remove_index(rng.random_range(0 .. free.len())).unwrap();
+                board[a] = Some(orbs[0]);
+                board[b] = Some(orbs[1]);
+
+                for a in [a, b] {
+                    pattern[a] = false;
+                }
+                for a in [a, b] {
+                    for hex in a.all_neighbors() {
+                        if Self::is_free_pattern(&pattern, hex) { free.insert(hex); }
+                    }
+                }
+            }
+
+            if !pool.is_empty() {
+                tracing::info!("missing? {:?}", &pool);
+            }
+
+            board[Hex::ORIGIN] = Some(10);
+
+            return Board { inner: board };
+        }
     }
 
     pub fn count_free(&self) -> usize {

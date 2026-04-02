@@ -2749,9 +2749,11 @@ dependencies = [
  "dioxus",
  "getrandom 0.4.2",
  "hexx",
+ "indexmap 2.13.0",
  "rand 0.10.0",
  "serde",
  "serde_json",
+ "shash",
  "tracing",
 ]
 
@@ -3820,6 +3822,12 @@ checksum = "f40ca3c46823713e0d4209592e8d6e826aa57e928f09752619fc696c499637f6"
 dependencies = [
  "lazy_static",
 ]
+
+[[package]]
+name = "shash"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d5f253cf65f01f101f684eef1551932d18f10680bd5a632f1dee108a793bc0e"
 
 [[package]]
 name = "shlex"

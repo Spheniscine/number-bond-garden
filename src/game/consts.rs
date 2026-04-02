@@ -1,3 +1,5 @@
+use std::ops::RangeInclusive;
+
 // colors assigned to each number, and the contrasting text color. 
 pub const ORB_COLORS: [(&str, &str); 11] = [
     ("#aaaaaa", "#000"), // 0, unused
@@ -14,4 +16,6 @@ pub const ORB_COLORS: [(&str, &str); 11] = [
 ];
 
 pub const BOARD_RADIUS: u32 = 4;
-pub const NUM_ORBS: usize = 37;
+pub const NUM_DUPES: usize = 4;
+pub const NUM_ORBS: usize = 9 * NUM_DUPES + 1;
+pub const INITIAL_FREE_ORB_RANGE: RangeInclusive<usize> = 4..=16;
