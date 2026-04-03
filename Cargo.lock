@@ -2757,7 +2757,6 @@ dependencies = [
  "serde_json",
  "shash",
  "tracing",
- "web-time",
 ]
 
 [[package]]

@@ -1,12 +1,9 @@
-use std::{cell::Cell, convert::Infallible, hash::{BuildHasher, Hash, Hasher, RandomState}};
-use rand::TryRng;
-use web_time::Instant;
+use std::{cell::Cell, convert::Infallible};
+use rand::{Rng, TryRng};
 
 fn generate_seed() -> u64 {
-    let state = RandomState::new();
-    let mut hasher = state.build_hasher();
-    Instant::now().hash(&mut hasher);
-    hasher.finish()
+    let source = &mut rand::rng();
+    source.next_u64()
 }
 
 // RNG from https://github.com/tkaitchuck/Mwc256XXA64

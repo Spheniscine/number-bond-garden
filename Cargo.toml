@@ -19,7 +19,6 @@ serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 shash = { version = "0.2.0", features = ["wasm"] }
 tracing = "0.1.44"
-web-time = "1.1.0"
 
 [features]
 default = ["web"]
