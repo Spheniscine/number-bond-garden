@@ -2750,7 +2750,6 @@ dependencies = [
  "getrandom 0.4.2",
  "hexx",
  "indexmap 2.13.0",
- "pcg-mwc",
  "rand 0.10.0",
  "rand_core 0.10.0",
  "serde",
@@ -3025,15 +3024,6 @@ dependencies = [
  "redox_syscall",
  "smallvec",
  "windows-link",
-]
-
-[[package]]
-name = "pcg-mwc"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2216858633c58b11bee47f9c8e9ff520bef76074d8ca893ac3f1a0d1d1bfcc7c"
-dependencies = [
- "rand_core 0.6.4",
 ]
 
 [[package]]

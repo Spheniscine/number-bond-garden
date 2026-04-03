@@ -1,10 +1,5 @@
 use std::{cell::Cell, convert::Infallible};
-use rand::{Rng, TryRng};
-
-fn generate_seed() -> u64 {
-    let source = &mut rand::rng();
-    source.next_u64()
-}
+use rand::{SeedableRng, TryRng};
 
 // RNG from https://github.com/tkaitchuck/Mwc256XXA64
 #[derive(Debug, Clone)]
@@ -17,7 +12,7 @@ impl InnerRng {
         for _ in 0..6 { res.gen_64(); }
         res
     }
-    fn new() -> Self { Self::from_seed(generate_seed(), generate_seed(), generate_seed()) }
+    fn new() -> Self { rand::make_rng() }
     fn gen_64(&self) -> u64 {
         let [x1, x2, x3, c] = self.state.get();
         let t = (x3 as u128).wrapping_mul(0xfeb3_4465_7c0a_f413);
@@ -26,6 +21,15 @@ impl InnerRng {
         let (x0, b) = low.overflowing_add(c);
         self.state.set([x0, x1, x2, hi.wrapping_add(b as u64)]);
         res
+    }
+}
+
+impl SeedableRng for InnerRng {
+    type Seed = [u8; u64::BITS as usize / 8 * 3];
+    
+    fn from_seed(seed: Self::Seed) -> Self {
+        let mut ite = seed.chunks_exact(u64::BITS as usize / 8).map(|chunk| u64::from_ne_bytes(chunk.try_into().unwrap()));
+        Self::from_seed(ite.next().unwrap(), ite.next().unwrap(), ite.next().unwrap())
     }
 }
 
