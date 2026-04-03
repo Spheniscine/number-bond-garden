@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::game::Board;
+use crate::game::{Board, ThreadRng};
 
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
@@ -10,8 +10,9 @@ pub struct GameState {
 
 impl GameState {
     pub fn test_gen() -> Self {
+        let rng = &mut ThreadRng;
         Self {
-            board: Board::test_gen()
+            board: Board::test_gen(rng)
         }
     }
 }

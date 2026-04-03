@@ -21,7 +21,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    // tracing::info!("{:?}", Board::_pattern_stats(1_000_000));
+    // tracing::info!("{:?}", Board::_pattern_stats(1_000_000, &mut ThreadRng));
 
     rsx! {
         document::Link { rel: "icon", href: FAVICON }

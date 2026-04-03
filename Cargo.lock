@@ -2750,11 +2750,14 @@ dependencies = [
  "getrandom 0.4.2",
  "hexx",
  "indexmap 2.13.0",
+ "pcg-mwc",
  "rand 0.10.0",
+ "rand_core 0.10.0",
  "serde",
  "serde_json",
  "shash",
  "tracing",
+ "web-time",
 ]
 
 [[package]]
@@ -3023,6 +3026,15 @@ dependencies = [
  "redox_syscall",
  "smallvec",
  "windows-link",
+]
+
+[[package]]
+name = "pcg-mwc"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2216858633c58b11bee47f9c8e9ff520bef76074d8ca893ac3f1a0d1d1bfcc7c"
+dependencies = [
+ "rand_core 0.6.4",
 ]
 
 [[package]]
@@ -3825,9 +3837,12 @@ dependencies = [
 
 [[package]]
 name = "shash"
-version = "0.1.1"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d5f253cf65f01f101f684eef1551932d18f10680bd5a632f1dee108a793bc0e"
+checksum = "9aff062b71755192eed3e99155a75c96857655a3cb6e0bdd7ef3e0b50f4ae64d"
+dependencies = [
+ "web-time",
+]
 
 [[package]]
 name = "shlex"
@@ -4733,6 +4748,16 @@ name = "web-sys"
 version = "0.3.91"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "854ba17bb104abfb26ba36da9729addc7ce7f06f5c0f90f3c391f8461cca21f9"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "web-time"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5a6580f308b1fad9207618087a65c04e7a10bc77e02c8e84e9b00dd4b12fa0bb"
 dependencies = [
  "js-sys",
  "wasm-bindgen",

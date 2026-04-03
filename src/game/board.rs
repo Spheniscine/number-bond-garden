@@ -1,12 +1,13 @@
 use std::ops::{Index, IndexMut};
 
 use hexx::{Hex, storage::{HexStore, HexagonalMap}};
-use rand::{RngExt, seq::SliceRandom};
+use rand::{Rng, RngExt, seq::SliceRandom};
 use serde::{Deserialize, Serialize};
+use shash::SHash;
 
 use crate::game::{BOARD_RADIUS, INITIAL_FREE_ORB_RANGE, NUM_DUPES, NUM_ORBS};
 
-type IndexSet<T> = indexmap::IndexSet<T>;
+type IndexSet<T> = indexmap::IndexSet<T, SHash>;
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct Board {
@@ -35,9 +36,8 @@ impl PartialEq for Board {
 impl Eq for Board {}
 
 impl Board {
-    pub fn generate_pattern() -> HexagonalMap<bool> {
+    pub fn generate_pattern(rng: &mut impl Rng) -> HexagonalMap<bool> {
         let mut pattern = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |_| false);
-        let rng = &mut rand::rng();
 
         if rng.random::<bool>() {
             // 2-way symmetry
@@ -89,11 +89,11 @@ impl Board {
         Self::is_free_inner(hex, |hex| self.inner.get(hex).copied().flatten().is_some())
     }
 
-    pub fn _pattern_stats(n: i32) -> [i32; NUM_ORBS + 1] {
+    pub fn _pattern_stats(n: i32, rng: &mut impl Rng) -> [i32; NUM_ORBS + 1] {
         let mut ans = [0; NUM_ORBS + 1];
         
         for _ in 0..n {
-            let pattern = Self::generate_pattern();
+            let pattern = Self::generate_pattern(rng);
             let active_count = pattern.bounds().all_coords().filter(|&hex| {
                 Self::is_free_pattern(&pattern, hex)
             }).count();
@@ -109,10 +109,9 @@ impl Board {
         }).collect()
     }
 
-    pub fn test_gen() -> Self {
-        let rng = &mut rand::rng();
+    pub fn test_gen(rng: &mut impl Rng) -> Self {
         'gen: loop {
-            let mut pattern = Self::generate_pattern();
+            let mut pattern = Self::generate_pattern(rng);
             let mut free = Self::free_hexes_in_pattern(&pattern);
             if !INITIAL_FREE_ORB_RANGE.contains(&free.len()) { continue; }
 
