@@ -15,7 +15,7 @@ pub const ORB_COLORS: [(&str, &str); 11] = [
     ("#966919", "#fff"), // 10
 ];
 
-pub const BOARD_RADIUS: u32 = 4;
-pub const NUM_DUPES: usize = 4;
+pub const BOARD_RADIUS: u32 = 5;
+pub const NUM_DUPES: usize = 6;
 pub const NUM_ORBS: usize = 9 * NUM_DUPES + 1;
 pub const INITIAL_FREE_ORB_RANGE: RangeInclusive<usize> = 4..=15;
