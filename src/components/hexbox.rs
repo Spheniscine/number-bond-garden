@@ -20,10 +20,10 @@ pub fn HexBox(
         div {
             style: "position: absolute; left: {pos.x}rem; top: {pos.y}rem;
             display: grid; place-items: center; 
-            width: {size.x}rem; height: {size.y}rem;",
+            width: {size.x}rem; height: {size.y}rem; font-size: {size.y * 0.5}rem",
             div {
                 class: "hexagon",
-                style: "height: 96%; width: 96%; display: grid; place-items: center; font-family: KaTeX_Main; font-size: 6rem;",
+                style: "height: 96%; width: 96%; display: grid; place-items: center; font-family: KaTeX_Main;",
                 
                 if let Some(((bg_color, text_color), content)) = colors_and_content {
                     div {
