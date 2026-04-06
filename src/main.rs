@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::HexGrid, game::GameState};
+use crate::{components::HexGrid, game::{Difficulty, GameState}};
 
 mod utils;
 mod game;
@@ -34,7 +34,7 @@ fn App() -> Element {
 
 #[component]
 pub fn Hero() -> Element {
-    let state = GameState::test_gen();
+    let state = GameState::test_gen(Difficulty::Normal);
     tracing::info!("Number of free orbs: {:?}", state.board.count_free());
 
     rsx! {
