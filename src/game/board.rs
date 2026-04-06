@@ -5,7 +5,7 @@ use rand::{Rng, RngExt, seq::SliceRandom};
 use serde::{Deserialize, Serialize};
 use shash::SHash;
 
-use crate::game::{BOARD_RADIUS, INITIAL_FREE_ORB_RANGE, NUM_DUPES, NUM_ORBS};
+use crate::game::Difficulty;
 
 type IndexSet<T> = indexmap::IndexSet<T, SHash>;
 
@@ -36,32 +36,28 @@ impl PartialEq for Board {
 impl Eq for Board {}
 
 impl Board {
-    pub fn generate_pattern(rng: &mut impl Rng) -> HexagonalMap<bool> {
-        let mut pattern = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |_| false);
+    pub fn generate_pattern(rng: &mut impl Rng, difficulty: Difficulty) -> HexagonalMap<bool> {
+        let mut pattern = HexagonalMap::new(Hex::ORIGIN, difficulty.board_radius(), |_| false);
 
         if rng.random::<bool>() {
             // 2-way symmetry
-            const _: () = assert!(NUM_ORBS % 2 == 1);
-
             // For 2-way symmetry: limit hexes picked to those where (x, y) > (0, 0)
             let mut pool = pattern.bounds().all_coords().filter(|hex| {
                 (hex.x, hex.y) > (0, 0)
             }).collect::<Vec<_>>();
 
-            for &mut x in pool.partial_shuffle(rng, NUM_ORBS / 2).0 {
+            for &mut x in pool.partial_shuffle(rng, difficulty.num_orbs() / 2).0 {
                 pattern[x] = true;
                 pattern[-x] = true;
             }
         } else {
             // 3-way symmetry
-            const _: () = assert!(NUM_ORBS % 3 == 1);
-
             // For 3-way symmetry: limit hexes picked to those where x >= 0 && y < 0
             let mut pool = pattern.bounds().all_coords().filter(|hex| {
                 hex.x >= 0 && hex.y < 0
             }).collect::<Vec<_>>();
 
-            for &mut mut x in pool.partial_shuffle(rng, NUM_ORBS / 3).0 {
+            for &mut mut x in pool.partial_shuffle(rng, difficulty.num_orbs() / 3).0 {
                 for _ in 0..3 {
                     pattern[x] = true;
                     x = x.clockwise().clockwise();
@@ -89,11 +85,11 @@ impl Board {
         Self::is_free_inner(hex, |hex| self.inner.get(hex).copied().flatten().is_some())
     }
 
-    pub fn _pattern_stats(n: i32, rng: &mut impl Rng) -> [i32; NUM_ORBS + 1] {
-        let mut ans = [0; NUM_ORBS + 1];
+    pub fn _pattern_stats(n: i32, rng: &mut impl Rng, difficulty: Difficulty) -> Vec<i32> {
+        let mut ans = vec![0; difficulty.num_orbs() + 1];
         
         for _ in 0..n {
-            let pattern = Self::generate_pattern(rng);
+            let pattern = Self::generate_pattern(rng, difficulty);
             let active_count = pattern.bounds().all_coords().filter(|&hex| {
                 Self::is_free_pattern(&pattern, hex)
             }).count();
@@ -109,22 +105,21 @@ impl Board {
         }).collect()
     }
 
-    pub fn test_gen(rng: &mut impl Rng) -> Self {
+    pub fn generate(rng: &mut impl Rng, difficulty: Difficulty) -> Self {
         'gen: loop {
-            let mut pattern = Self::generate_pattern(rng);
+            let mut pattern = Self::generate_pattern(rng, difficulty);
             let mut free = Self::free_hexes_in_pattern(&pattern);
-            if !INITIAL_FREE_ORB_RANGE.contains(&free.len()) { continue; }
+            if !difficulty.initial_free_orb_range().contains(&free.len()) { continue; }
 
-            const _: () = assert!(NUM_DUPES % 2 == 0);
             let mut pool = std::iter::repeat((1u8 ..= 4).map(|i| [i, 10 - i]))
-                .take(NUM_DUPES).flatten()
+                .take(difficulty.num_dupes()).flatten()
                 .chain(
-                    std::iter::repeat([5, 5]).take(NUM_DUPES / 2)
+                    std::iter::repeat([5, 5]).take(difficulty.num_dupes() / 2)
                 ).collect::<Vec<_>>();
             
             pool.shuffle(rng);
 
-            let mut board = HexagonalMap::new(Hex::ORIGIN, BOARD_RADIUS, |_| { None });
+            let mut board = HexagonalMap::new(Hex::ORIGIN, difficulty.board_radius(), |_| { None });
             loop {
                 if free.swap_remove(&Hex::ORIGIN) {
                     pattern[Hex::ORIGIN] = false;

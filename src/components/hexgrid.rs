@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use hexx::{HexLayout, HexOrientation, Vec2};
-use crate::{components::HexBox, game::{BOARD_RADIUS, Board}};
+use crate::{components::HexBox, game::Board};
 
 #[component]
 pub fn HexGrid(
@@ -8,7 +8,7 @@ pub fn HexGrid(
 ) -> Element {
     let bounds = board.inner.bounds();
 
-    let scale = 49. / (1. + 1.5 * BOARD_RADIUS as f32);
+    let scale = 49. / (1. + 1.5 * board.inner.bounds().radius as f32);
 
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
