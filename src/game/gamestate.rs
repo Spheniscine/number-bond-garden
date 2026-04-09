@@ -10,11 +10,23 @@ pub struct GameState {
 }
 
 impl GameState {
-    pub fn test_gen(difficulty: Difficulty) -> Self {
+    pub fn generate(difficulty: Difficulty) -> Self {
         let rng = &mut ThreadRng;
         Self {
             difficulty,
             board: Board::generate(rng, difficulty)
         }
+    }
+
+    pub fn change_difficulty(&mut self) {
+        let difficulty = match self.difficulty {
+            Difficulty::Normal => Difficulty::Hard,
+            Difficulty::Hard => Difficulty::Normal,
+        };
+        *self = Self::generate(difficulty);
+    }
+
+    pub fn new_game(&mut self) {
+        *self = Self::generate(self.difficulty);
     }
 }

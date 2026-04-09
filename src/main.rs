@@ -48,8 +48,8 @@ fn App() -> Element {
 
 #[component]
 pub fn Hero() -> Element {
-    let state = GameState::test_gen(Difficulty::Normal);
-    tracing::info!("Number of free orbs: {:?}", state.board.count_free());
+    let mut state = use_signal(|| {GameState::generate(Difficulty::Normal)});
+    // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
 
     rsx! {
         div {
@@ -61,16 +61,18 @@ pub fn Hero() -> Element {
                 div {
                     class: "button",
                     style: "width: 50rem;",
-                    "Difficulty: Normal",
+                    onclick: move |_| { state.write().change_difficulty(); },
+                    "Difficulty: {state().difficulty}",
                 },
                 div {
                     class: "button",
+                    onclick: move |_| { state.write().new_game(); },
                     "New Game",
                 },
             }
 
             HexGrid {
-                board: state.board
+                board: state().board
             }
             // "a",
             // img { src: HEADER_SVG, id: "header" }
