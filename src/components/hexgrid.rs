@@ -12,7 +12,7 @@ pub fn HexGrid(
 
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
-        origin: Vec2 { x: 50., y: 56. },
+        origin: Vec2 { x: 50., y: 70. },
         scale: Vec2 { x: scale, y: scale },
     };
 
