@@ -72,4 +72,18 @@ impl GameState {
             }
         }
     }
+
+    pub fn undo(&mut self) {
+        if let Some(mv) = self.undo_stack.pop() {
+            for (hex, val) in mv {
+                self.board[hex] = Some(val);
+            }
+        }
+    }
+
+    pub fn restart(&mut self) {
+        while !self.undo_stack.is_empty() {
+            self.undo();
+        }
+    }
 }

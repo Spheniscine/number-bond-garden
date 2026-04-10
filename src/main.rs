@@ -53,6 +53,10 @@ pub fn Hero() -> Element {
     let st = state();
     let dim_blocked = if st.dim_blocked {"On"} else {"Off"};
 
+    let button_class = |enabled: bool| {
+        if enabled {"button"} else {"button-disabled"}
+    };
+
     rsx! {
         div {
             id: "hero",
@@ -81,13 +85,15 @@ pub fn Hero() -> Element {
             div {
                 style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
                 div {
-                    class: "button-disabled",
+                    class: button_class(!st.undo_stack.is_empty()),
                     style: "width: 40rem;",
+                    onclick: move |_| { state.write().undo() },
                     "Undo",
                 },
                 div {
-                    class: "button-disabled",
+                    class: button_class(!st.undo_stack.is_empty()),
                     style: "width: 40rem;",
+                    onclick: move |_| { state.write().restart() },
                     "Restart",
                 },
             }
@@ -106,16 +112,6 @@ pub fn Hero() -> Element {
                     "Help",
                 },
             }
-            // "a",
-            // img { src: HEADER_SVG, id: "header" }
-            // div { id: "links",
-            //     a { href: "https://dioxuslabs.com/learn/0.7/", "📚 Learn Dioxus" }
-            //     a { href: "https://dioxuslabs.com/awesome", "🚀 Awesome Dioxus" }
-            //     a { href: "https://github.com/dioxus-community/", "📡 Community Libraries" }
-            //     a { href: "https://github.com/DioxusLabs/sdk", "⚙️ Dioxus Development Kit" }
-            //     a { href: "https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus", "💫 VSCode Extension" }
-            //     a { href: "https://discord.gg/XgGxMSkvUM", "👋 Community Discord" }
-            // }
         }
     }
 }

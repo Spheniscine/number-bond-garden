@@ -38,6 +38,8 @@ body {
     align-items: center;
 }
 
+/* boilerplate for testing on Dioxus default page */
+/* 
 #links {
     width: 80rem;
     text-align: left;
@@ -65,8 +67,7 @@ body {
 
 #header {
     width: 100rem;
-    /* max-width: 240rem; */
-}
+} */
 
 .hexagon {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
