@@ -85,8 +85,8 @@ body {
     width: 30rem; height: 6rem; line-height: 6rem; text-align: center;
 }
 .button-disabled {
-    border: 0.5rem solid #00B163; border-radius: 1rem; font-size: 5rem; margin: 2rem; padding: 2rem; color:#99b;
-    width: 30rem; height: 6rem; line-height: 6rem; text-align: center; background-color: #779;
+    border: 0.5rem solid #00B163; border-radius: 1rem; font-size: 5rem; margin: 2rem; padding: 2rem; color:#999;
+    width: 30rem; height: 6rem; line-height: 6rem; text-align: center; background-color: #777;
 }
 
 @font-face {

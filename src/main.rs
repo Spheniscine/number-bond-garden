@@ -66,6 +66,7 @@ pub fn Hero() -> Element {
                 },
                 div {
                     class: "button",
+                    style: "width: 30rem;",
                     onclick: move |_| { state.write().new_game(); },
                     "New Game",
                 },
@@ -73,6 +74,34 @@ pub fn Hero() -> Element {
 
             HexGrid {
                 board: state().board
+            }
+
+            div {
+                style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
+                div {
+                    class: "button-disabled",
+                    style: "width: 40rem;",
+                    "Undo",
+                },
+                div {
+                    class: "button-disabled",
+                    style: "width: 40rem;",
+                    "Restart",
+                },
+            }
+
+            div {
+                style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
+                div {
+                    class: "button-disabled",
+                    style: "width: 40rem;",
+                    "Dim Blocked: Off",
+                },
+                div {
+                    class: "button-disabled",
+                    style: "width: 40rem;",
+                    "Help",
+                },
             }
             // "a",
             // img { src: HEADER_SVG, id: "header" }
