@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::{BoardComponent, HexGrid}, game::{Difficulty, GameState}};
+use crate::{components::BoardComponent, game::{Difficulty, GameState}};
 
 mod utils;
 mod game;
@@ -50,6 +50,8 @@ fn App() -> Element {
 pub fn Hero() -> Element {
     let mut state = use_signal(|| {GameState::generate(Difficulty::Normal)});
     // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
+    let st = state();
+    let dim_blocked = if st.dim_blocked {"On"} else {"Off"};
 
     rsx! {
         div {
@@ -62,7 +64,7 @@ pub fn Hero() -> Element {
                     class: "button",
                     style: "width: 50rem;",
                     onclick: move |_| { state.write().change_difficulty(); },
-                    "Difficulty: {state().difficulty}",
+                    "Difficulty: {st.difficulty}",
                 },
                 div {
                     class: "button",
@@ -93,9 +95,10 @@ pub fn Hero() -> Element {
             div {
                 style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
                 div {
-                    class: "button-disabled",
+                    class: "button",
                     style: "width: 40rem;",
-                    "Dim Blocked: On",
+                    onclick: move |_| { state.write().dim_blocked ^= true; },
+                    "Dim Blocked: {dim_blocked}",
                 },
                 div {
                     class: "button-disabled",
