@@ -78,6 +78,7 @@ impl GameState {
             for (hex, val) in mv {
                 self.board[hex] = Some(val);
             }
+            self.selected = None;
         }
     }
 
