@@ -7,6 +7,7 @@ use crate::game::{Board, Difficulty, ThreadRng};
 pub struct GameState {
     pub difficulty: Difficulty,
     pub board: Board,
+    pub dim_blocked: bool,
 }
 
 impl GameState {
@@ -14,19 +15,20 @@ impl GameState {
         let rng = &mut ThreadRng;
         Self {
             difficulty,
-            board: Board::generate(rng, difficulty)
+            board: Board::generate(rng, difficulty),
+            dim_blocked: true,
         }
     }
 
     pub fn change_difficulty(&mut self) {
-        let difficulty = match self.difficulty {
+        self.difficulty = match self.difficulty {
             Difficulty::Normal => Difficulty::Hard,
             Difficulty::Hard => Difficulty::Normal,
         };
-        *self = Self::generate(difficulty);
+        self.board = Board::generate(&mut ThreadRng, self.difficulty);
     }
 
     pub fn new_game(&mut self) {
-        *self = Self::generate(self.difficulty);
+        self.board = Board::generate(&mut ThreadRng, self.difficulty);
     }
 }

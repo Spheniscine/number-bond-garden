@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::HexGrid, game::{Difficulty, GameState}};
+use crate::{components::{BoardComponent, HexGrid}, game::{Difficulty, GameState}};
 
 mod utils;
 mod game;
@@ -11,7 +11,7 @@ const FAVICON: Asset = asset!("/assets/favicon.ico");
 
 // string inclusion is used to prevent FOUC;
 
-const _RAND_RECOMPILE: u64 = 0x4a2a5cf9126cd711; // comment and uncomment to force recompilation
+// const _RAND_RECOMPILE: u64 = 0x4a2a5cf9126cd711; // comment and uncomment to force recompilation
 const MAIN_CSS: &str = const_css_minify::minify!("../assets/main.css");
 // const TAILWIND_CSS: &str = const_css_minify::minify!("../assets/tailwind.css");
 
@@ -70,11 +70,11 @@ pub fn Hero() -> Element {
                     onclick: move |_| { state.write().new_game(); },
                     "New Game",
                 },
-            }
+            },
 
-            HexGrid {
-                board: state().board
-            }
+            BoardComponent {
+                state: state.clone()
+            },
 
             div {
                 style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
@@ -95,7 +95,7 @@ pub fn Hero() -> Element {
                 div {
                     class: "button-disabled",
                     style: "width: 40rem;",
-                    "Dim Blocked: Off",
+                    "Dim Blocked: On",
                 },
                 div {
                     class: "button-disabled",

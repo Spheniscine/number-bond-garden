@@ -89,6 +89,10 @@ body {
     width: 30rem; height: 6rem; line-height: 6rem; text-align: center; background-color: #777;
 }
 
+.dimmed {
+    opacity: 0.3;
+}
+
 @font-face {
     font-family: KaTeX_Main;
     font-style: normal;

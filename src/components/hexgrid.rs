@@ -1,10 +1,14 @@
 use dioxus::prelude::*;
-use hexx::{HexLayout, HexOrientation, Vec2};
+use hexx::{Hex, HexLayout, HexOrientation, Vec2};
 use crate::{components::HexBox, game::Board};
 
 #[component]
 pub fn HexGrid(
-    board: Board
+    board: Board,
+    origin: Vec2,
+    scale: f32,
+    dim_blocked: bool,
+    onclick: Option<EventHandler<Hex>>,
 ) -> Element {
     let bounds = board.inner.bounds();
 
@@ -29,7 +33,8 @@ pub fn HexGrid(
                 pos: v,
                 size,
                 hex,
-                content: board[hex]
+                content: board[hex],
+                dimmed: dim_blocked && !board.is_free(hex),
             }
         }
     }

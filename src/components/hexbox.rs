@@ -11,10 +11,12 @@ pub fn HexBox(
     size: Vec2,
     hex: Hex,
     content: Option<u8>,
+    dimmed: bool,
 ) -> Element {
     let colors_and_content = content.map(|x| {
         (ORB_COLORS[x as usize], x)
     });
+    let dimmed = if dimmed {"dimmed"} else {""};
 
     rsx! {
         div {
@@ -28,6 +30,7 @@ pub fn HexBox(
                 if let Some(((bg_color, text_color), content)) = colors_and_content {
                     div {
                         // class: if (hex.x, hex.y) == (0, 0) {"selected"} else {""},
+                        class: dimmed,
                         style: "height: 80%; aspect-ratio: 1; border-radius: 50%; 
                         background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;",
                         "{content}",
