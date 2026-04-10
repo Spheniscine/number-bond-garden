@@ -8,15 +8,14 @@ pub fn HexGrid(
     origin: Vec2,
     scale: f32,
     dim_blocked: bool,
+    selected: Option<Hex>,
     onclick: Option<EventHandler<Hex>>,
 ) -> Element {
     let bounds = board.inner.bounds();
 
-    let scale = 49. / (1. + 1.5 * board.inner.bounds().radius as f32);
-
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
-        origin: Vec2 { x: 50., y: 72. },
+        origin,
         scale: Vec2 { x: scale, y: scale },
     };
 
@@ -27,6 +26,14 @@ pub fn HexGrid(
         (p - half_size, hex)
     });
 
+    let onclick = |hex: Hex| {
+        move |_| {
+            if let Some(onclick) = onclick {
+                onclick.call(hex)
+            }
+        }
+    };
+
     rsx! {
         for (v, hex) in boxes {
             HexBox {
@@ -35,6 +42,8 @@ pub fn HexGrid(
                 hex,
                 content: board[hex],
                 dimmed: dim_blocked && !board.is_free(hex),
+                selected: selected == Some(hex),
+                onclick: onclick(hex),
             }
         }
     }

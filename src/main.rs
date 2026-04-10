@@ -75,7 +75,7 @@ pub fn Hero() -> Element {
             },
 
             BoardComponent {
-                state: state.clone()
+                state: state.clone(),
             },
 
             div {

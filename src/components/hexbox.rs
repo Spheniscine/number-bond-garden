@@ -12,11 +12,14 @@ pub fn HexBox(
     hex: Hex,
     content: Option<u8>,
     dimmed: bool,
+    selected: bool,
+    onclick: EventHandler<MouseEvent>
 ) -> Element {
     let colors_and_content = content.map(|x| {
         (ORB_COLORS[x as usize], x)
     });
     let dimmed = if dimmed {"dimmed"} else {""};
+    let selected = if selected {"selected"} else {""};
 
     rsx! {
         div {
@@ -30,9 +33,10 @@ pub fn HexBox(
                 if let Some(((bg_color, text_color), content)) = colors_and_content {
                     div {
                         // class: if (hex.x, hex.y) == (0, 0) {"selected"} else {""},
-                        class: dimmed,
+                        class: "{dimmed} {selected}",
                         style: "height: 80%; aspect-ratio: 1; border-radius: 50%; 
                         background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;",
+                        onclick,
                         "{content}",
                     }
                 }
