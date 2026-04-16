@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::BoardComponent, game::{Difficulty, GameState}};
+use crate::{components::{BoardComponent, Help}, game::{Difficulty, GameState}};
 
 mod utils;
 mod game;
@@ -57,61 +57,68 @@ pub fn Hero() -> Element {
         if enabled {"button"} else {"button-disabled"}
     };
 
+    let help_test = true;
+
     rsx! {
         div {
             id: "hero",
             class: "select-none",
 
-            div {
-                style: "display: flex; flex-direction: row;",
+            if !help_test {
                 div {
-                    class: "button",
-                    style: "width: 50rem;",
-                    onclick: move |_| { state.write().change_difficulty(); },
-                    "Difficulty: {st.difficulty}",
+                    style: "display: flex; flex-direction: row;",
+                    div {
+                        class: "button",
+                        style: "width: 50rem;",
+                        onclick: move |_| { state.write().change_difficulty(); },
+                        "Difficulty: {st.difficulty}",
+                    },
+                    div {
+                        class: "button",
+                        style: "width: 30rem;",
+                        onclick: move |_| { state.write().new_game(); },
+                        "New Game",
+                    },
                 },
-                div {
-                    class: "button",
-                    style: "width: 30rem;",
-                    onclick: move |_| { state.write().new_game(); },
-                    "New Game",
-                },
-            },
 
-            BoardComponent {
-                state: state.clone(),
-            },
+                BoardComponent {
+                    state: state.clone(),
+                },
 
-            div {
-                style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
                 div {
-                    class: button_class(!st.undo_stack.is_empty()),
-                    style: "width: 40rem;",
-                    onclick: move |_| { state.write().undo() },
-                    "Undo",
-                },
+                    style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
+                    div {
+                        class: button_class(!st.undo_stack.is_empty()),
+                        style: "width: 40rem;",
+                        onclick: move |_| { state.write().undo() },
+                        "Undo",
+                    },
+                    div {
+                        class: button_class(!st.undo_stack.is_empty()),
+                        style: "width: 40rem;",
+                        onclick: move |_| { state.write().restart() },
+                        "Restart",
+                    },
+                }
+
                 div {
-                    class: button_class(!st.undo_stack.is_empty()),
-                    style: "width: 40rem;",
-                    onclick: move |_| { state.write().restart() },
-                    "Restart",
-                },
+                    style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
+                    div {
+                        class: "button",
+                        style: "width: 40rem;",
+                        onclick: move |_| { state.write().dim_blocked ^= true; },
+                        "Dim Blocked: {dim_blocked}",
+                    },
+                    div {
+                        class: "button-disabled",
+                        style: "width: 40rem;",
+                        "Help",
+                    },
+                }
+            } else {
+                Help {  }
             }
-
-            div {
-                style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
-                div {
-                    class: "button",
-                    style: "width: 40rem;",
-                    onclick: move |_| { state.write().dim_blocked ^= true; },
-                    "Dim Blocked: {dim_blocked}",
-                },
-                div {
-                    class: "button-disabled",
-                    style: "width: 40rem;",
-                    "Help",
-                },
-            }
+            
         }
     }
 }
