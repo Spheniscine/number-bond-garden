@@ -4,7 +4,7 @@ use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
 use crate::{components::{HexGrid, orb::Orb}, game::{Board, HEX_ASPECT_RATIO}};
 
 #[component]
-pub fn Help_pair(
+pub fn HelpPair(
     a: u8,
     b: Option<u8>,
 ) -> Element {
@@ -156,12 +156,12 @@ pub fn Help() -> Element {
             div {
                 style: "position: relative; padding-top: 3rem; display: flex; flex-direction: row; place-items: center;",
                 for a in 1..=5 {
-                    Help_pair { 
+                    HelpPair { 
                         a, b: 10 - a,
                     }
                     div { style: "width: 4rem;" }
                 }
-                Help_pair {
+                HelpPair {
                     a: 10,
                 }
             }
