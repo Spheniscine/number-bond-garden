@@ -41,8 +41,8 @@ pub fn Help() -> Element {
     let mut board1 = Board {
         inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
     };
-    board1[Hex::ORIGIN] = Some(3);
-    board1[Hex { x: 0, y: 1 }] = Some(7);
+    board1[Hex::ORIGIN] = Some(4);
+    board1[Hex { x: 0, y: 1 }] = Some(6);
 
     let board2 = board1.clone();
 
