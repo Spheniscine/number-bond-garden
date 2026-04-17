@@ -5,8 +5,8 @@ use crate::{components::HexGrid, game::Board};
 
 #[component]
 pub fn Help() -> Element {
-    let view_scale: f32 = 40.;
-    let hex_scale: f32 = 7.;
+    let view_scale: f32 = 35.;
+    let hex_scale: f32 = 6.;
     let hex_aspect_ratio: f32 = 0.8660254;
     let origin1 = Vec2::splat(view_scale / 2.) - Vec2 { x: 0., y: hex_scale * hex_aspect_ratio };
 
@@ -63,7 +63,7 @@ pub fn Help() -> Element {
                 },
 
                 div {
-                    style: "width: 5rem;"
+                    style: "width: 7rem;"
                 }
 
                 div {
@@ -80,7 +80,7 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 4rem; font-size: 4.5rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 4rem; font-size: 4rem; color: #fff; text-align: center;",
                 "Your goal is to clear the board. Select a free orb, then match it with another orb, such that their numbers add up to ten, to remove both orbs from the board."
             }
 
@@ -99,7 +99,7 @@ pub fn Help() -> Element {
                 },
 
                 div {
-                    style: "width: 5rem;"
+                    style: "width: 7rem;"
                 }
 
                 div {
@@ -110,12 +110,13 @@ pub fn Help() -> Element {
                         origin: origin4,
                         scale: hex_scale,
                         dim_blocked: true,
+                        selected: Hex { x: 2, y: -4 },
                     },
                 },
             }
 
             div {
-                style: "position: relative; padding-top: 4rem; font-size: 4.5rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 4rem; font-size: 4rem; color: #fff; text-align: center;",
                 "An orb is free only if it has three ",
                 b { 
                     style: "color: #ff0",
