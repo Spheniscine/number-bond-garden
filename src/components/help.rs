@@ -108,12 +108,12 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 2.5rem; font-size: 4rem; color: #fff; text-align: center;",
                 "Your goal is to clear the board. Select a free orb, then match it with another free orb, such that their numbers add up to ten, to remove both orbs from the board."
             }
 
             div {
-                style: "display: flex; flex-direction: row; padding-top: 4rem;",
+                style: "display: flex; flex-direction: row; padding-top: 2.5rem;",
 
                 div {
                     style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
@@ -144,7 +144,7 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 2.5rem; font-size: 4rem; color: #fff; text-align: center;",
                 "An orb is free only if it has three ",
                 b { 
                     style: "color: #ff0",
@@ -154,7 +154,7 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 3rem; display: flex; flex-direction: row; place-items: center;",
+                style: "position: relative; padding-top: 2.5rem; display: flex; flex-direction: row; place-items: center;",
                 for a in 1..=5 {
                     HelpPair { 
                         a, b: 10 - a,
@@ -167,7 +167,7 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 2.5rem; font-size: 4rem; color: #fff; text-align: center;",
                 "These are the possible matches. The ",
                 span {
                     style: "font-family: KaTeX_Main; font-size: 115%;",
@@ -178,6 +178,7 @@ pub fn Help() -> Element {
             }
 
             div {
+                style: "position: relative; padding-top: 2rem;",
                 div {
                     class: "button",
                     style: "width: 40rem;",
