@@ -23,7 +23,7 @@ pub fn Orb(
             class: "{dimmed} {selected}",
             style: "height: {size_y * ORB_SCALE}rem; aspect-ratio: 1; border-radius: 50%; 
             background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;
-            font-size: {size_y * 0.5}rem",
+            font-size: {size_y * 0.5}rem; font-family: KaTeX_Main;",
             onclick,
             "{content}",
         }

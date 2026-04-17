@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use hexx::{Hex, Vec2};
 
-use crate::{components::orb::Orb, game::{ORB_COLORS, ORB_SCALE}};
+use crate::components::orb::Orb;
 
 #[component]
 pub fn HexBox(
@@ -23,7 +23,7 @@ pub fn HexBox(
             width: {size.x}rem; height: {size.y}rem;",
             div {
                 class: "hexagon",
-                style: "height: 96%; width: 96%; display: grid; place-items: center; font-family: KaTeX_Main;",
+                style: "height: 96%; width: 96%; display: grid; place-items: center;",
                 
                 if let Some(content) = content {
                     Orb {

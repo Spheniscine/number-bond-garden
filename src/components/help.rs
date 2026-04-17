@@ -1,18 +1,32 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
 
-use crate::{components::HexGrid, game::{Board, HEX_ASPECT_RATIO}};
+use crate::{components::{HexGrid, orb::Orb}, game::{Board, HEX_ASPECT_RATIO}};
 
 #[component]
 pub fn Help_pair(
     a: u8,
     b: Option<u8>,
 ) -> Element {
+    let size_y = 12. * HEX_ASPECT_RATIO;
     rsx! {
         div {
-            style: "display: flex; flex-direction: column; align-items: center;",
+            style: "display: flex; flex-direction: column; align-items: center;
+            font-size: {size_y * 0.5}rem; font-family: KaTeX_Main; color: #fff",
 
+            Orb {
+                content: a,
+                size_y,
+            }
+            
+            if let Some(b) = b {
+                "+",
 
+                Orb {
+                    content: b,
+                    size_y,
+                }
+            }
         }
     }
 }
@@ -63,7 +77,7 @@ pub fn Help() -> Element {
             style: "padding: 2rem; display: flex; flex-direction: column; align-items: center;",
 
             div {
-                style: "display: flex; flex-direction: row; padding-top: 2rem;",
+                style: "display: flex; flex-direction: row; padding-top: 1rem;",
 
                 div {
                     style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
@@ -94,7 +108,7 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 4rem; font-size: 4rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
                 "Your goal is to clear the board. Select a free orb, then match it with another free orb, such that their numbers add up to ten, to remove both orbs from the board."
             }
 
@@ -130,13 +144,46 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; padding-top: 4rem; font-size: 4rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
                 "An orb is free only if it has three ",
                 b { 
                     style: "color: #ff0",
                     "contiguous" 
                 },
                 " empty spaces next to it. Luckily, spaces off the board count as empty spaces.",
+            }
+
+            div {
+                style: "position: relative; padding-top: 3rem; display: flex; flex-direction: row; place-items: center;",
+                for a in 1..=5 {
+                    Help_pair { 
+                        a, b: 10 - a,
+                    }
+                    div { style: "width: 4rem;" }
+                }
+                Help_pair {
+                    a: 10,
+                }
+            }
+
+            div {
+                style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
+                "These are the possible matches. The ",
+                span {
+                    style: "font-family: KaTeX_Main; font-size: 4.4rem;",
+                    "10",
+                },
+                
+                " orb is special and can be removed once it is free.",
+            }
+
+            div {
+                div {
+                    class: "button",
+                    style: "width: 40rem;",
+                    // onclick: move |_| { state.write().dim_blocked ^= true; },
+                    "Back to game",
+                },
             }
         }
         
