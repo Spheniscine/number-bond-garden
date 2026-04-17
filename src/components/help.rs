@@ -109,7 +109,8 @@ pub fn Help() -> Element {
 
             div {
                 style: "position: relative; padding-top: 2.5rem; font-size: 4rem; color: #fff; text-align: center;",
-                "Your goal is to clear the board. Select a free orb, then match it with another free orb, such that their numbers add up to ten, to remove both orbs from the board."
+                "Your goal is to clear the board.", br {},
+                "Select a free orb, then select another free orb, such that their numbers add up to ten, to remove both orbs from the board."
             }
 
             div {
