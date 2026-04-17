@@ -1,13 +1,27 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
 
-use crate::{components::HexGrid, game::Board};
+use crate::{components::HexGrid, game::{Board, HEX_ASPECT_RATIO}};
+
+#[component]
+pub fn Help_pair(
+    a: u8,
+    b: Option<u8>,
+) -> Element {
+    rsx! {
+        div {
+            style: "display: flex; flex-direction: column; align-items: center;",
+
+
+        }
+    }
+}
 
 #[component]
 pub fn Help() -> Element {
     let view_scale: f32 = 35.;
     let hex_scale: f32 = 6.;
-    let hex_aspect_ratio: f32 = 0.8660254;
+    let hex_aspect_ratio: f32 = HEX_ASPECT_RATIO;
     let origin1 = Vec2::splat(view_scale / 2.) - Vec2 { x: 0., y: hex_scale * hex_aspect_ratio };
 
     let mut board1 = Board {
@@ -81,7 +95,7 @@ pub fn Help() -> Element {
 
             div {
                 style: "position: relative; padding-top: 4rem; font-size: 4rem; color: #fff; text-align: center;",
-                "Your goal is to clear the board. Select a free orb, then match it with another orb, such that their numbers add up to ten, to remove both orbs from the board."
+                "Your goal is to clear the board. Select a free orb, then match it with another free orb, such that their numbers add up to ten, to remove both orbs from the board."
             }
 
             div {

@@ -1,3 +1,5 @@
+mod orb;
+
 mod hexbox;
 pub use hexbox::HexBox;
 

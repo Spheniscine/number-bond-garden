@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use hexx::{Hex, Vec2};
 
-use crate::game::ORB_COLORS;
+use crate::game::{ORB_COLORS, ORB_SCALE};
 
 #[component]
 pub fn HexBox(
@@ -25,7 +25,7 @@ pub fn HexBox(
         div {
             style: "position: absolute; left: {pos.x}rem; top: {pos.y}rem;
             display: grid; place-items: center; 
-            width: {size.x}rem; height: {size.y}rem; font-size: {size.y * 0.5}rem",
+            width: {size.x}rem; height: {size.y}rem;",
             div {
                 class: "hexagon",
                 style: "height: 96%; width: 96%; display: grid; place-items: center; font-family: KaTeX_Main;",
@@ -33,8 +33,9 @@ pub fn HexBox(
                 if let Some(((bg_color, text_color), content)) = colors_and_content {
                     div {
                         class: "{dimmed} {selected}",
-                        style: "height: 80%; aspect-ratio: 1; border-radius: 50%; 
-                        background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;",
+                        style: "height: {size.y * ORB_SCALE}rem; aspect-ratio: 1; border-radius: 50%; 
+                        background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;
+                        font-size: {size.y * 0.5}rem",
                         onclick,
                         "{content}",
                     }
