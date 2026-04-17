@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use hexx::{Hex, Vec2, hex, storage::HexagonalMap};
+use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
 
 use crate::{components::HexGrid, game::Board};
 
@@ -8,29 +8,55 @@ pub fn Help() -> Element {
     let view_scale: f32 = 40.;
     let hex_scale: f32 = 7.;
     let hex_aspect_ratio: f32 = 0.8660254;
-    let origin = Vec2::splat(view_scale / 2.) - Vec2 { x: 0., y: hex_scale * hex_aspect_ratio };
+    let origin1 = Vec2::splat(view_scale / 2.) - Vec2 { x: 0., y: hex_scale * hex_aspect_ratio };
 
     let mut board1 = Board {
         inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
     };
     board1[Hex::ORIGIN] = Some(3);
-    board1[Hex { x: 0, y: 1}] = Some(7);
+    board1[Hex { x: 0, y: 1 }] = Some(7);
 
-    let mut board2 = board1.clone();
+    let board2 = board1.clone();
+
+    let mut board3 = Board {
+        inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
+    };
+    board3[Hex::ORIGIN] = Some(3);
+    board3[Hex { x: -1, y: 0 }] = Some(7);
+    board3[Hex { x: 0, y: 1 }] = Some(8);
+    board3[Hex { x: 1, y: 0 }] = Some(9);
+    
+
+    let origin3 = Vec2::splat(view_scale / 2.);
+
+    let mut board4 = Board {
+        inner: HexagonalMap::new(Hex::ORIGIN, 4, |_| None)
+    };
+    let layout4 = HexLayout {
+        orientation: HexOrientation::Flat,
+        origin: Vec2::ZERO,
+        scale: Vec2::splat(hex_scale),
+    };
+
+    let origin4 = Vec2::splat(view_scale / 2.) - layout4.hex_to_world_pos(Hex { x: 2, y: -4 });
+    board4[Hex { x: 2, y: -4 }] = Some(3);
+    board4[Hex { x: 1, y: -3 }] = Some(7);
+    board4[Hex { x: 2, y: -3 }] = Some(8);
+    board4[Hex { x: 3, y: -4 }] = Some(9);
     
     rsx! {
         div {
             style: "padding: 2rem; display: flex; flex-direction: column; align-items: center;",
 
             div {
-                style: "display: flex; flex-direction: row;",
+                style: "display: flex; flex-direction: row; padding-top: 2rem;",
 
                 div {
-                    style: "overflow: hidden; position: relative; top: 2rem; height: {view_scale}rem; width: {view_scale}rem;",
+                    style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
 
                     HexGrid { 
                         board: board1,
-                        origin,
+                        origin: origin1,
                         scale: hex_scale,
                         dim_blocked: true,
                     },
@@ -41,11 +67,11 @@ pub fn Help() -> Element {
                 }
 
                 div {
-                    style: "overflow: hidden; position: relative; top: 2rem; height: {view_scale}rem; width: {view_scale}rem;",
+                    style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
 
                     HexGrid { 
                         board: board2,
-                        origin,
+                        origin: origin1,
                         scale: hex_scale,
                         dim_blocked: true,
                         selected: Hex::ORIGIN,
@@ -54,8 +80,48 @@ pub fn Help() -> Element {
             }
 
             div {
-                style: "position: relative; top: 4rem; font-size: 4.5rem; color: #fff; text-align: center;",
+                style: "position: relative; padding-top: 4rem; font-size: 4.5rem; color: #fff; text-align: center;",
                 "Your goal is to clear the board. Select a free orb, then match it with another orb, such that their numbers add up to ten, to remove both orbs from the board."
+            }
+
+            div {
+                style: "display: flex; flex-direction: row; padding-top: 4rem;",
+
+                div {
+                    style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
+
+                    HexGrid { 
+                        board: board3,
+                        origin: origin3,
+                        scale: hex_scale,
+                        dim_blocked: true,
+                    },
+                },
+
+                div {
+                    style: "width: 5rem;"
+                }
+
+                div {
+                    style: "overflow: hidden; position: relative; height: {view_scale}rem; width: {view_scale}rem; border: 0.5rem solid #fff;",
+
+                    HexGrid { 
+                        board: board4,
+                        origin: origin4,
+                        scale: hex_scale,
+                        dim_blocked: true,
+                    },
+                },
+            }
+
+            div {
+                style: "position: relative; padding-top: 4rem; font-size: 4.5rem; color: #fff; text-align: center;",
+                "An orb is free only if it has three ",
+                b { 
+                    style: "color: #ff0",
+                    "contiguous" 
+                },
+                " empty spaces next to it. Luckily, spaces off the board count as empty spaces.",
             }
         }
         
