@@ -170,7 +170,7 @@ pub fn Help() -> Element {
                 style: "position: relative; padding-top: 3rem; font-size: 4rem; color: #fff; text-align: center;",
                 "These are the possible matches. The ",
                 span {
-                    style: "font-family: KaTeX_Main; font-size: 4.4rem;",
+                    style: "font-family: KaTeX_Main; font-size: 115%;",
                     "10",
                 },
                 

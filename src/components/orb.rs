@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::game::{ORB_COLORS, ORB_SCALE};
+use crate::game::ORB_COLORS;
 
 #[component]
 pub fn Orb(
@@ -21,7 +21,7 @@ pub fn Orb(
     rsx! {
         div {
             class: "{dimmed} {selected}",
-            style: "height: {size_y * ORB_SCALE}rem; aspect-ratio: 1; border-radius: 50%; 
+            style: "height: {size_y * 0.8}rem; aspect-ratio: 1; border-radius: 50%; 
             background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;
             font-size: {size_y * 0.5}rem; font-family: KaTeX_Main;",
             onclick,

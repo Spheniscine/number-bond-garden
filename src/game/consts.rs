@@ -14,4 +14,3 @@ pub const ORB_COLORS: [(&str, &str); 11] = [
 ];
 
 pub const HEX_ASPECT_RATIO: f32 = 0.8660254; // = sqrt(3) / 2
-pub const ORB_SCALE: f32 = 0.8;
