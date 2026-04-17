@@ -49,9 +49,9 @@ pub fn Help() -> Element {
     let mut board3 = Board {
         inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
     };
-    board3[Hex::ORIGIN] = Some(3);
-    board3[Hex { x: -1, y: 0 }] = Some(7);
-    board3[Hex { x: 0, y: 1 }] = Some(8);
+    board3[Hex::ORIGIN] = Some(1);
+    board3[Hex { x: -1, y: 0 }] = Some(9);
+    board3[Hex { x: 0, y: 1 }] = Some(9);
     board3[Hex { x: 1, y: 0 }] = Some(9);
     
 
@@ -67,9 +67,9 @@ pub fn Help() -> Element {
     };
 
     let origin4 = Vec2::splat(view_scale / 2.) - layout4.hex_to_world_pos(Hex { x: 2, y: -4 });
-    board4[Hex { x: 2, y: -4 }] = Some(3);
-    board4[Hex { x: 1, y: -3 }] = Some(7);
-    board4[Hex { x: 2, y: -3 }] = Some(8);
+    board4[Hex { x: 2, y: -4 }] = Some(1);
+    board4[Hex { x: 1, y: -3 }] = Some(9);
+    board4[Hex { x: 2, y: -3 }] = Some(9);
     board4[Hex { x: 3, y: -4 }] = Some(9);
     
     rsx! {
