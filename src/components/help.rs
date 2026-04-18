@@ -43,8 +43,8 @@ pub fn Help(
     let mut board1 = Board {
         inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
     };
-    board1[Hex::ORIGIN] = Some(4);
-    board1[Hex { x: 0, y: 1 }] = Some(6);
+    board1[Hex::ORIGIN] = Some(6);
+    board1[Hex { x: 0, y: 1 }] = Some(4);
     let decors1 = vec![
         (Hex::ORIGIN, Decor::Pointer),
     ];
