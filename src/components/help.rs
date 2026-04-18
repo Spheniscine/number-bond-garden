@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
 
-use crate::{components::{HexGrid, orb::Orb}, game::{Board, HEX_ASPECT_RATIO}};
+use crate::{components::{Decor, HexGrid, orb::Orb}, game::{Board, HEX_ASPECT_RATIO}};
 
 #[component]
 pub fn HelpPair(
@@ -43,8 +43,15 @@ pub fn Help() -> Element {
     };
     board1[Hex::ORIGIN] = Some(4);
     board1[Hex { x: 0, y: 1 }] = Some(6);
+    let decors1 = vec![
+        (Hex::ORIGIN, Decor::Pointer),
+    ];
 
     let board2 = board1.clone();
+    let origin2 = origin1;
+    let decors2 = vec![
+        (Hex { x: 0, y: 1 }, Decor::Pointer),
+    ];
 
     let mut board3 = Board {
         inner: HexagonalMap::new(Hex::ORIGIN, 3, |_| None)
@@ -87,6 +94,7 @@ pub fn Help() -> Element {
                         origin: origin1,
                         scale: hex_scale,
                         dim_blocked: true,
+                        decors: decors1,
                     },
                 },
 
@@ -99,10 +107,11 @@ pub fn Help() -> Element {
 
                     HexGrid { 
                         board: board2,
-                        origin: origin1,
+                        origin: origin2,
                         scale: hex_scale,
                         dim_blocked: true,
                         selected: Hex::ORIGIN,
+                        decors: decors2,
                     },
                 },
             }

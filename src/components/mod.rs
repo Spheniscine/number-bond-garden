@@ -1,4 +1,8 @@
 mod orb;
+pub use orb::Orb;
+
+mod decor;
+pub use decor::*;
 
 mod hexbox;
 pub use hexbox::HexBox;
