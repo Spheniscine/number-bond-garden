@@ -60,6 +60,12 @@ pub fn Help() -> Element {
     board3[Hex { x: -1, y: 0 }] = Some(9);
     board3[Hex { x: 0, y: 1 }] = Some(9);
     board3[Hex { x: 1, y: 0 }] = Some(9);
+    let decors3 = vec![
+        (Hex::ORIGIN, Decor::Lock),
+        (Hex { x: 0, y: -1 }, Decor::Highlight),
+        (Hex { x: 1, y: -1 }, Decor::Highlight),
+        (Hex { x: -1, y: 1 }, Decor::Highlight),
+    ];
     
 
     let origin3 = Vec2::splat(view_scale / 2.);
@@ -78,6 +84,11 @@ pub fn Help() -> Element {
     board4[Hex { x: 1, y: -3 }] = Some(9);
     board4[Hex { x: 2, y: -3 }] = Some(9);
     board4[Hex { x: 3, y: -4 }] = Some(9);
+    let decors4 = vec![
+        (Hex { x: 2, y: -5 }, Decor::Highlight),
+        (Hex { x: 3, y: -5 }, Decor::Highlight),
+        (Hex { x: 1, y: -4 }, Decor::Highlight),
+    ];
     
     rsx! {
         div {
@@ -133,6 +144,7 @@ pub fn Help() -> Element {
                         origin: origin3,
                         scale: hex_scale,
                         dim_blocked: true,
+                        decors: decors3,
                     },
                 },
 
@@ -149,6 +161,7 @@ pub fn Help() -> Element {
                         scale: hex_scale,
                         dim_blocked: true,
                         selected: Hex { x: 2, y: -4 },
+                        decors: decors4,
                     },
                 },
             }
