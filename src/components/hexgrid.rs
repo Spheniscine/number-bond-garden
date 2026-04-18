@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexLayout, HexOrientation, Vec2};
-use crate::{components::HexBox, game::Board};
+use crate::{components::{Decor, DecorComponent, HexBox}, game::Board};
 
 #[component]
 pub fn HexGrid(
@@ -10,6 +10,8 @@ pub fn HexGrid(
     dim_blocked: bool,
     selected: Option<Hex>,
     onclick: Option<EventHandler<Hex>>,
+    #[props(default = vec![])]
+    decors: Vec<(Hex, Decor)>,
 ) -> Element {
     let bounds = board.inner.bounds();
 
@@ -44,6 +46,13 @@ pub fn HexGrid(
                 dimmed: dim_blocked && !board.is_free(hex),
                 selected: selected == Some(hex),
                 onclick: onclick(hex),
+            }
+        }
+        for (hex, decor) in decors {
+            DecorComponent { 
+                pos: layout.hex_to_world_pos(hex),
+                scale: size,
+                decor,
             }
         }
     }

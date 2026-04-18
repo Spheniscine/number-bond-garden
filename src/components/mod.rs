@@ -1,3 +1,8 @@
+mod orb;
+
+mod decor;
+pub use decor::*;
+
 mod hexbox;
 pub use hexbox::HexBox;
 
@@ -6,3 +11,9 @@ pub use hexgrid::HexGrid;
 
 mod board;
 pub use board::BoardComponent;
+
+mod help;
+pub use help::*;
+
+mod hero;
+pub use hero::Hero;

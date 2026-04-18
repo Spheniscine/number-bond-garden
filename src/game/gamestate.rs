@@ -6,6 +6,11 @@ use crate::game::{Board, Difficulty, ThreadRng};
 
 pub type Move = ArrayVec<(Hex, u8), 2>;
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub enum ScreenState {
+    Game, Help
+}
+
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct GameState {
     pub difficulty: Difficulty,
@@ -13,6 +18,7 @@ pub struct GameState {
     pub dim_blocked: bool,
     pub selected: Option<Hex>,
     pub undo_stack: Vec<Move>,
+    pub screen_state: ScreenState,
 }
 
 impl GameState {
@@ -24,6 +30,7 @@ impl GameState {
             dim_blocked: true,
             selected: None,
             undo_stack: vec![],
+            screen_state: ScreenState::Game,
         }
     }
 
