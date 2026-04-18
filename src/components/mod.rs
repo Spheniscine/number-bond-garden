@@ -1,5 +1,4 @@
 mod orb;
-pub use orb::Orb;
 
 mod decor;
 pub use decor::*;
@@ -15,3 +14,6 @@ pub use board::BoardComponent;
 
 mod help;
 pub use help::*;
+
+mod hero;
+pub use hero::Hero;

@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
-use hexx::{Hex, HexLayout, HexOrientation, Vec2, hex, storage::HexagonalMap};
+use hexx::{Hex, HexLayout, HexOrientation, Vec2, storage::HexagonalMap};
 
-use crate::{components::{Decor, HexGrid, orb::Orb}, game::{Board, HEX_ASPECT_RATIO}};
+use crate::{components::{Decor, HexGrid, orb::Orb}, game::{Board, GameState, HEX_ASPECT_RATIO, ScreenState}};
 
 #[component]
 pub fn HelpPair(
@@ -32,7 +32,9 @@ pub fn HelpPair(
 }
 
 #[component]
-pub fn Help() -> Element {
+pub fn Help(
+    state: Signal<GameState>
+) -> Element {
     let view_scale: f32 = 35.;
     let hex_scale: f32 = 6.;
     let hex_aspect_ratio: f32 = HEX_ASPECT_RATIO;
@@ -205,7 +207,7 @@ pub fn Help() -> Element {
                 div {
                     class: "button",
                     style: "width: 40rem;",
-                    // onclick: move |_| { state.write().dim_blocked ^= true; },
+                    onclick: move |_| { state.write().screen_state = ScreenState::Game; },
                     "Back to game",
                 },
             }

@@ -160,7 +160,7 @@ impl Board {
         }
     }
 
-    pub fn count_free(&self) -> usize {
+    pub fn _count_free(&self) -> usize {
         self.inner.bounds().all_coords().filter(|&hex| {
             self.is_free(hex)
         }).count()

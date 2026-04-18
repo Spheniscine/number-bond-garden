@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::{BoardComponent, Help}, game::{Difficulty, GameState}};
+use crate::components::Hero;
 
 mod utils;
 mod game;
@@ -43,82 +43,5 @@ fn App() -> Element {
         // document::Style { {TAILWIND_CSS} }
         Hero {}
 
-    }
-}
-
-#[component]
-pub fn Hero() -> Element {
-    let mut state = use_signal(|| {GameState::generate(Difficulty::Normal)});
-    // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
-    let st = state();
-    let dim_blocked = if st.dim_blocked {"On"} else {"Off"};
-
-    let button_class = |enabled: bool| {
-        if enabled {"button"} else {"button-disabled"}
-    };
-
-    let help_test = true;
-
-    rsx! {
-        div {
-            id: "hero",
-            class: "select-none",
-
-            if !help_test {
-                div {
-                    style: "display: flex; flex-direction: row;",
-                    div {
-                        class: "button",
-                        style: "width: 50rem;",
-                        onclick: move |_| { state.write().change_difficulty(); },
-                        "Difficulty: {st.difficulty}",
-                    },
-                    div {
-                        class: "button",
-                        style: "width: 30rem;",
-                        onclick: move |_| { state.write().new_game(); },
-                        "New Game",
-                    },
-                },
-
-                BoardComponent {
-                    state: state.clone(),
-                },
-
-                div {
-                    style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
-                    div {
-                        class: button_class(!st.undo_stack.is_empty()),
-                        style: "width: 40rem;",
-                        onclick: move |_| { state.write().undo() },
-                        "Undo",
-                    },
-                    div {
-                        class: button_class(!st.undo_stack.is_empty()),
-                        style: "width: 40rem;",
-                        onclick: move |_| { state.write().restart() },
-                        "Restart",
-                    },
-                }
-
-                div {
-                    style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
-                    div {
-                        class: "button",
-                        style: "width: 40rem;",
-                        onclick: move |_| { state.write().dim_blocked ^= true; },
-                        "Dim Blocked: {dim_blocked}",
-                    },
-                    div {
-                        class: "button-disabled",
-                        style: "width: 40rem;",
-                        "Help",
-                    },
-                }
-            } else {
-                Help {  }
-            }
-            
-        }
     }
 }

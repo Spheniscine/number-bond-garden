@@ -1,10 +1,6 @@
 use dioxus::prelude::*;
 use hexx::Vec2;
 
-
-const POINTER: &str = "👆";
-const LOCK: &str = "🔒";
-
 /// special "decorations" to be placed on a HexGrid, for the help screen
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Decor {
