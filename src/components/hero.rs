@@ -39,7 +39,21 @@ pub fn Hero() -> Element {
                 },
 
                 div {
-                    style: "position: absolute; top: 130rem; display: flex; flex-direction: row;",
+                    style: "position: absolute; top: 130rem; display: flex; flex-direction: row; font-size: 5rem; color: #fff; place-items: center;",
+                    
+                    div {
+                        style: "font-family: 'Noto Color Emoji'; font-size: 8rem;",
+                        "🐱",
+                    }
+
+                    div {
+                        class: "speech",
+                        "Good luck and have fun!"
+                    }
+                }
+
+                div {
+                    style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
                     div {
                         class: button_class(!st.undo_stack.is_empty()),
                         style: "width: 40rem;",
@@ -55,7 +69,7 @@ pub fn Hero() -> Element {
                 }
 
                 div {
-                    style: "position: absolute; top: 143rem; display: flex; flex-direction: row;",
+                    style: "position: absolute; top: 156rem; display: flex; flex-direction: row;",
                     div {
                         class: "button",
                         style: "width: 40rem;",
