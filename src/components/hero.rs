@@ -83,6 +83,11 @@ pub fn Hero() -> Element {
                         "Help",
                     },
                 }
+
+                p {
+                    style: "position: absolute; bottom: 1.5rem; font-size: 3rem; color: #fff;",
+                    "© OnlineMathLearning.com"
+                },
             } else if st.screen_state == ScreenState::Help {
                 Help { 
                     state: state.clone(),

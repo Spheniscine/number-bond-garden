@@ -24,7 +24,7 @@ pub fn DecorComponent(
             }
         },
         Decor::Lock => {
-            let pos = pos - scale / 2. + Vec2 { x: scale.x * 0.01, y: scale.y * -0.03, };
+            let pos = pos - scale / 2. + Vec2 { x: scale.x * 0.0075, y: scale.y * -0.03, };
             rsx! {
                 div {
                     style: "position: absolute; left: {pos.x}rem; top: {pos.y}rem; 
