@@ -12,3 +12,6 @@ pub use gamestate::*;
 
 mod board;
 pub use board::*;
+
+mod message;
+pub use message::*;
