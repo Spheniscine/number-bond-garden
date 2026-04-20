@@ -18,7 +18,7 @@ impl LocalStorage {
         match self.get_storage() {
             Ok(Some(storage)) => {
                 match serde_json::to_string(state) {
-                    Ok(result) => {storage.set_item(KEY, &result);}
+                    Ok(result) => {storage.set_item(KEY, &result).ok();}
                     Err(e) => {tracing::error!("{:?}", e);}
                 }
             }
