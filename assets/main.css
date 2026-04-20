@@ -58,10 +58,10 @@ body {
     z-index: 1;
     border-style: solid;
     border-color: transparent #031;
-    border-width: 2rem 5rem 2rem 0;
+    border-width: 2.1rem 4.85rem 2.1rem 0;
     top: 50%;
     left: -4.65rem;
-    margin-top: -2rem;
+    margin-top: -2.1rem;
 }
 .speech:before {
     content: '';
