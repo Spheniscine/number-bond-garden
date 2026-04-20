@@ -63,6 +63,7 @@ impl GameState {
     }
 
     pub fn click_hex(&mut self, hex: Hex) {
+        if self.message == Message::Lost { return; }
         if !self.board.is_free(hex) { return; }
         let Some(&Some(a)) = self.board.inner.get(hex) else { return };
         let b = self.selected.map(|hex| self.board.inner.get(hex).copied()).flatten().flatten();
