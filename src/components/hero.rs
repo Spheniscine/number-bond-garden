@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use crate::{components::{BoardComponent, Help}, game::{Difficulty, GameState, ScreenState}};
+use crate::{components::{BoardComponent, Help, Speech}, game::{Difficulty, GameState, ScreenState}};
 
 #[component]
 pub fn Hero() -> Element {
@@ -43,12 +43,12 @@ pub fn Hero() -> Element {
                     
                     div {
                         style: "font-family: 'Noto Color Emoji'; font-size: 8rem;",
-                        "🐱",
+                        "{st.message.emoji()}",
                     }
 
                     div {
                         class: "speech",
-                        "Good luck and have fun!"
+                        Speech { message: st.message.clone(), }
                     }
                 }
 

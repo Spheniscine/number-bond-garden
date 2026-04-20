@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use hexx::{Hex, HexLayout, HexOrientation, Vec2, storage::HexagonalMap};
 
-use crate::{components::{Decor, HexGrid, orb::Orb}, game::{Board, GameState, HEX_ASPECT_RATIO, ScreenState}};
+use crate::{components::{Decor, HexGrid, Math, orb::Orb}, game::{Board, GameState, HEX_ASPECT_RATIO, ScreenState}};
 
 #[component]
 pub fn HelpPair(
@@ -194,11 +194,7 @@ pub fn Help(
             div {
                 style: "position: relative; padding-top: 2.5rem; font-size: 4rem; color: #fff; text-align: center;",
                 "These are the possible matches. The ",
-                span {
-                    style: "font-family: KaTeX_Main; font-size: 115%;",
-                    "10",
-                },
-                
+                Math { tex: "10" },
                 " orb is special and can be removed once it is free.",
             }
 
