@@ -20,6 +20,7 @@ serde_json = "1.0.149"
 shash = { version = "0.2.0", features = ["wasm"] }
 tracing = "0.1.44"
 katex = { version = "0.4.6", default-features = false, features = ["wasm-js"] }
+web-sys = { version = "0.3.77", features = ["Window", "Storage"] }
 
 [features]
 default = ["web"]
