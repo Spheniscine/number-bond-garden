@@ -34,6 +34,36 @@ pub fn Hero() -> Element {
                     },
                 },
 
+                div {
+                    style: "position: absolute; top: 16rem; left: 3rem; font-size: 4rem; color: #fff; 
+                    padding-left: 1.5rem; padding-right: 1.5rem; padding-bottom: 1rem; width: 16rem;
+                    border: 0.5rem solid #00B163; border-radius: 1rem; text-align: center;",
+
+                    span {
+                        style: "font-size: 3rem",
+                        "Score",
+                    }
+
+                    br {}
+
+                    "{st.score} / {st.difficulty.num_orbs()}"
+                }
+
+                div {
+                    style: "position: absolute; top: 16rem; right: 3rem; font-size: 4rem; color: #fff; 
+                    padding-left: 1.5rem; padding-right: 1.5rem; padding-bottom: 1rem; width: 16rem;
+                    border: 0.5rem solid #00B163; border-radius: 1rem; text-align: center;",
+
+                    span {
+                        style: "font-size: 3rem",
+                        "Wins",
+                    }
+
+                    br {}
+
+                    "{st.num_wins}"
+                }
+
                 BoardComponent {
                     state: state.clone(),
                 },
