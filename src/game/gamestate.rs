@@ -2,7 +2,7 @@ use arrayvec::ArrayVec;
 use hexx::{Hex, storage::HexStore};
 use serde::{Deserialize, Serialize};
 
-use crate::game::{Board, Difficulty, Message, ThreadRng};
+use crate::{components::LocalStorage, game::{Board, Difficulty, Message, ThreadRng}};
 
 pub type Move = ArrayVec<(Hex, u8), 2>;
 
@@ -28,7 +28,7 @@ pub struct GameState {
 impl GameState {
     pub fn generate(difficulty: Difficulty) -> Self {
         let rng = &mut ThreadRng;
-        Self {
+        let res = Self {
             difficulty,
             board: Board::generate(rng, difficulty),
             dim_blocked: true,
@@ -39,7 +39,9 @@ impl GameState {
             score: 0,
             num_wins: 0,
             message: Message::Neutral,
-        }
+        };
+        LocalStorage.save_game_state(&res);
+        res
     }
 
     pub fn change_difficulty(&mut self) {
@@ -57,9 +59,11 @@ impl GameState {
         self.already_won = false;
         self.score = 0;
         self.message = Message::Neutral;
+        LocalStorage.save_game_state(&self);
     }
 
     pub fn click_hex(&mut self, hex: Hex) {
+        if self.message == Message::Lost { return; }
         if !self.board.is_free(hex) { return; }
         let Some(&Some(a)) = self.board.inner.get(hex) else { return };
         let b = self.selected.map(|hex| self.board.inner.get(hex).copied()).flatten().flatten();
@@ -98,6 +102,7 @@ impl GameState {
         self.score += mv.len();
         self.undo_stack.push(mv);
         self.check_game_end();
+        LocalStorage.save_game_state(&self);
     }
 
     fn check_game_end(&mut self) {
@@ -122,6 +127,11 @@ impl GameState {
     }
 
     pub fn undo(&mut self) {
+        self._undo();
+        LocalStorage.save_game_state(&self);
+    }
+
+    fn _undo(&mut self) {
         if let Some(mv) = self.undo_stack.pop() {
             self.score -= mv.len();
             for (hex, val) in mv {
@@ -134,8 +144,9 @@ impl GameState {
 
     pub fn restart(&mut self) {
         while !self.undo_stack.is_empty() {
-            self.undo();
+            self._undo();
         }
         self.message = Message::Restarted;
+        LocalStorage.save_game_state(&self);
     }
 }

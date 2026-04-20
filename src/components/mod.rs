@@ -1,3 +1,6 @@
+mod local_storage;
+pub use local_storage::LocalStorage;
+
 mod orb;
 
 mod math;

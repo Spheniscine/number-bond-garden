@@ -1,9 +1,16 @@
 use dioxus::prelude::*;
-use crate::{components::{BoardComponent, Help, Speech}, game::{Difficulty, GameState, ScreenState}};
+use crate::{components::{BoardComponent, Help, LocalStorage, Speech}, game::{Difficulty, GameState, ScreenState}};
 
 #[component]
 pub fn Hero() -> Element {
-    let mut state = use_signal(|| {GameState::generate(Difficulty::Normal)});
+    let mut state = use_signal(|| {
+        if let Some(mut state) = LocalStorage.load_game_state() {
+            state.selected = None;
+            state.screen_state = ScreenState::Game;
+            return state;
+        }
+        GameState::generate(Difficulty::Normal)
+    });
     // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
     let st = state();
     let dim_blocked = if st.dim_blocked {"On"} else {"Off"};
