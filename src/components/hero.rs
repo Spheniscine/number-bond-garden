@@ -48,7 +48,7 @@ pub fn Hero() -> Element {
 
                     span {
                         style: "font-size: 3rem",
-                        "Score",
+                        "SCORE",
                     }
 
                     br {}
@@ -63,7 +63,7 @@ pub fn Hero() -> Element {
 
                     span {
                         style: "font-size: 3rem",
-                        "Wins",
+                        "WINS",
                     }
 
                     br {}
