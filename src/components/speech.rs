@@ -21,7 +21,7 @@ pub fn Speech(
         }
         Message::Incorrect(a, b) => rsx! {
             Math {
-                tex: "{a} + {b} = {a + b} \\  \\color {{yellow}} {{\\ne 10}}"
+                tex: "{a} + {b} = {a + b} \\; \\color{{yellow}}{{\\ne 10}}"
             }
         },
         Message::Undone => rsx! {

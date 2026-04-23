@@ -13,14 +13,13 @@ pub fn Orb(
     onclick: Option<EventHandler<MouseEvent>>,
 ) -> Element {
     let (bg_color, text_color) = ORB_COLORS[content as usize];
-    let dimmed = if dimmed {"dimmed"} else {""};
-    let selected = if selected {"selected"} else {""};
 
     let onclick = move |e| if let Some(f) = onclick { f.call(e) };
 
     rsx! {
         div {
-            class: "{dimmed} {selected}",
+            class: if dimmed {"dimmed"},
+            class: if selected {"selected"},
             style: "height: {size_y * 0.8}rem; aspect-ratio: 1; border-radius: 50%; 
             background-color: {bg_color}; color: {text_color}; display: grid; place-items: center;
             font-size: {size_y * 0.5}rem; font-family: KaTeX_Main;",
