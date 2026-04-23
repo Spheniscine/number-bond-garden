@@ -143,6 +143,7 @@ impl GameState {
     }
 
     pub fn restart(&mut self) {
+        if self.undo_stack.is_empty() { return; }
         while !self.undo_stack.is_empty() {
             self._undo();
         }
