@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use hexx::{Hex, HexLayout, HexOrientation, Vec2};
+use hexx::{Hex, HexLayout, HexOrientation, Vec2, storage::HexStore};
 use crate::{components::{Decor, DecorComponent, HexBox}, game::Board};
 
 #[component]
@@ -23,9 +23,10 @@ pub fn HexGrid(
 
     let size = layout.rect_size();
     let half_size = size / 2.;
-    let boxes = bounds.all_coords().map(|hex| {
+
+    let iter = board.inner.iter().map(|(hex, &content)| {
         let p = layout.hex_to_world_pos(hex);
-        (p - half_size, hex)
+        (p - half_size, hex, content)
     });
 
     let onclick = |hex: Hex| {
@@ -37,12 +38,12 @@ pub fn HexGrid(
     };
 
     rsx! {
-        for (v, hex) in boxes {
+        for (v, hex, content) in iter {
             HexBox {
                 pos: v,
                 size,
                 hex,
-                content: board[hex],
+                content: content,
                 dimmed: dim_blocked && !board.is_free(hex),
                 selected: selected == Some(hex),
                 onclick: onclick(hex),

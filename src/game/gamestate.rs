@@ -114,9 +114,9 @@ impl GameState {
             self.message = Message::Won;
         } else { // check for loss
             let mut free = [false; 10];
-            for hex in self.board.inner.bounds().all_coords() {
+            for (hex, &content) in self.board.inner.iter() {
                 if !self.board.is_free(hex) { continue; }
-                if let Some(x) = self.board[hex] {
+                if let Some(x) = content {
                     if x == 10 { return; }
                     if free[(10 - x) as usize] { return; }
                     free[x as usize] = true;
