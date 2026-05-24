@@ -9,12 +9,11 @@ pub fn HexGrid(
     scale: f32,
     dim_blocked: bool,
     selected: Option<Hex>,
-    onclick: Option<EventHandler<Hex>>,
+    #[props(default)]
+    onclick: EventHandler<Hex>,
     #[props(default = vec![])]
     decors: Vec<(Hex, Decor)>,
 ) -> Element {
-    let bounds = board.inner.bounds();
-
     let layout = HexLayout {
         orientation: HexOrientation::Flat,
         origin,
@@ -31,9 +30,7 @@ pub fn HexGrid(
 
     let onclick = |hex: Hex| {
         move |_| {
-            if let Some(onclick) = onclick {
-                onclick.call(hex)
-            }
+            onclick.call(hex)
         }
     };
 

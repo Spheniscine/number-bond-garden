@@ -10,11 +10,10 @@ pub fn Orb(
     dimmed: bool,
     #[props(default = false)]
     selected: bool,
-    onclick: Option<EventHandler<MouseEvent>>,
+    #[props(default)]
+    onclick: EventHandler<MouseEvent>,
 ) -> Element {
     let (bg_color, text_color) = ORB_COLORS[content as usize];
-
-    let onclick = move |e| if let Some(f) = onclick { f.call(e) };
 
     rsx! {
         div {
