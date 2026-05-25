@@ -15,6 +15,12 @@ pub fn Hero() -> Element {
     let confetti_counter = use_memo(move || {
         state.read().num_wins
     });
+    use_effect(move || {
+        let _ = confetti_counter.read();
+        document::eval("confetti();");
+    });
+
+    
     let st = state();
 
     // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
@@ -24,12 +30,6 @@ pub fn Hero() -> Element {
     let button_class = |enabled: bool| {
         if enabled {"button"} else {"button-disabled"}
     };
-
-    
-    use_effect(move || {
-        let _ = confetti_counter.read();
-        document::eval("confetti();");
-    });
 
     rsx! {
         div {
