@@ -13,7 +13,7 @@ pub fn Hero() -> Element {
     });
 
     let confetti_counter = use_memo(move || {
-        state().num_wins
+        state.read().num_wins
     });
     let st = state();
 
@@ -25,15 +25,11 @@ pub fn Hero() -> Element {
         if enabled {"button"} else {"button-disabled"}
     };
 
-    let is_won = st.is_won();
+    
     use_effect(move || {
         let _ = confetti_counter.read();
-        if is_won {
-            document::eval("confetti();");
-        }
+        document::eval("confetti();");
     });
-
-    
 
     rsx! {
         div {
