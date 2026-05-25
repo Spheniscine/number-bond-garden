@@ -11,13 +11,29 @@ pub fn Hero() -> Element {
         }
         GameState::generate(Difficulty::Normal)
     });
-    // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
+
+    let confetti_counter = use_memo(move || {
+        state().num_wins
+    });
     let st = state();
+
+    // tracing::info!("Number of free orbs: {:?}", state().board.count_free());
+    
     let dim_blocked = if st.dim_blocked {"On"} else {"Off"};
 
     let button_class = |enabled: bool| {
         if enabled {"button"} else {"button-disabled"}
     };
+
+    let is_won = st.is_won();
+    use_effect(move || {
+        let _ = confetti_counter.read();
+        if is_won {
+            document::eval("confetti();");
+        }
+    });
+
+    
 
     rsx! {
         div {
@@ -44,7 +60,7 @@ pub fn Hero() -> Element {
                 div {
                     style: "position: absolute; top: 16rem; left: 3rem; font-size: 4rem; color: #fff; 
                     padding-left: 1.5rem; padding-right: 1.5rem; padding-bottom: 1rem; width: 16rem;
-                    border: 0.5rem solid #00B163; border-radius: 1rem; text-align: center;",
+                    background-color: #052; border-radius: 1rem; text-align: center;",
 
                     span {
                         style: "font-size: 3rem",
@@ -59,7 +75,7 @@ pub fn Hero() -> Element {
                 div {
                     style: "position: absolute; top: 16rem; right: 3rem; font-size: 4rem; color: #fff; 
                     padding-left: 1.5rem; padding-right: 1.5rem; padding-bottom: 1rem; width: 16rem;
-                    border: 0.5rem solid #00B163; border-radius: 1rem; text-align: center;",
+                    background-color: #052; border-radius: 1rem; text-align: center;",
 
                     span {
                         style: "font-size: 3rem",

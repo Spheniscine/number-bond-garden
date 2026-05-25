@@ -126,6 +126,10 @@ impl GameState {
         }
     }
 
+    pub fn is_won(&self) -> bool {
+        self.message == Message::Won
+    }
+
     pub fn undo(&mut self) {
         self._undo();
         LocalStorage.save_game_state(&self);
