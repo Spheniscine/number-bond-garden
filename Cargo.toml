@@ -21,6 +21,7 @@ shash = { version = "0.2.0", features = ["wasm"] }
 tracing = "0.1.44"
 katex = { version = "0.4.6", default-features = false, features = ["wasm-js"] }
 web-sys = { version = "0.3.77", features = ["Window", "Storage"] }
+phf = { version = "0.13.1", features = ["macros"] }
 
 [features]
 default = ["web"]

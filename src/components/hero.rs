@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use crate::{components::{BoardComponent, Help, LocalStorage, Speech}, game::{Difficulty, GameState, ScreenState}};
+use crate::{components::{BoardComponent, EMOJI_MAP, Emoji, Help, LocalStorage, Speech}, game::{Difficulty, GameState, ScreenState}};
 
 #[component]
 pub fn Hero() -> Element {
@@ -30,6 +30,7 @@ pub fn Hero() -> Element {
     let button_class = |enabled: bool| {
         if enabled {"button"} else {"button-disabled"}
     };
+
 
     rsx! {
         div {
@@ -92,7 +93,9 @@ pub fn Hero() -> Element {
                     
                     div {
                         style: "font-family: 'Noto Color Emoji'; font-size: 8rem;",
-                        "{st.message.emoji()}",
+                        Emoji { 
+                            text: "{st.message.emoji()}"
+                        }
                     }
 
                     div {
@@ -143,6 +146,17 @@ pub fn Hero() -> Element {
                 }
             }
             
+            div {
+                id: "preloaded-images",
+
+                for asset in EMOJI_MAP.values() {
+                    img {
+                        src: *asset,
+                        width: 1,
+                        height: 1,
+                    }
+                }
+            },
         }
     }
 }

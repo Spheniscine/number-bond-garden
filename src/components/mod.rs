@@ -26,3 +26,6 @@ pub use speech::*;
 
 mod hero;
 pub use hero::Hero;
+
+mod emoji;
+pub use emoji::*;

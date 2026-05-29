@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 use hexx::Vec2;
 
+use crate::components::Emoji;
+
 /// special "decorations" to be placed on a HexGrid, for the help screen
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Decor {
@@ -20,18 +22,22 @@ pub fn DecorComponent(
             div {
                 style: "position: absolute; left: {pos.x}rem; top: {pos.y}rem;
                 font-family: 'Noto Color Emoji'; font-size: {scale.y * 0.5}rem;",
-                "👆",
+                Emoji { 
+                    text: "👆"
+                }
             }
         },
         Decor::Lock => {
-            let pos = pos - scale / 2. + Vec2 { x: scale.x * 0.0075, y: scale.y * -0.03, };
+            let pos = pos - scale / 2. + Vec2 { x: scale.x * 0.0075, y: scale.y * -0.0, };
             rsx! {
                 div {
                     style: "position: absolute; left: {pos.x}rem; top: {pos.y}rem; 
                     display: grid; place-items: center; 
                     width: {scale.x}rem; height: {scale.y}rem;
                     font-family: 'Noto Color Emoji'; font-size: {scale.y * 0.5}rem;",
-                    "🔒",
+                    Emoji { 
+                        text: "🔒"
+                    }
                 }
             }
         }

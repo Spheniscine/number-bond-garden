@@ -141,3 +141,12 @@ body {
         url(https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/fonts/KaTeX_Main-Regular.woff) format("woff"),
         url(https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/fonts/KaTeX_Main-Regular.ttf) format("truetype");
 }
+
+#preloaded-images {
+   position: absolute;
+   overflow: hidden;
+   left: -9999rem; 
+   top: -9999rem;
+   height: 1px;
+   width: 1px;
+}
