@@ -116,7 +116,7 @@ pub fn Hero() -> Element {
                         class: button_class(!st.undo_stack.is_empty()),
                         style: "width: 40rem;",
                         onclick: move |_| { state.write().restart() },
-                        "Restart",
+                        "Reset",
                     },
                 }
 

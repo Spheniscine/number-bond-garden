@@ -28,7 +28,7 @@ pub fn Speech(
             "Undid your last move."
         },
         Message::Restarted => rsx! {
-            "Game restarted."
+            "Game reset."
         },
         Message::Won => rsx! {
             "You cleared the board!"
