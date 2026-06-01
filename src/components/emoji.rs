@@ -16,7 +16,7 @@ pub fn Emoji(text: String) -> Element {
     if let Some(asset) = EMOJI_MAP.get(&text) {
         rsx! {
             img {
-                style: "height: 1.175em; vertical-align: middle; position: relative; top: -0.07em; left: -0.02em;",
+                style: "height: 1.175em; vertical-align: middle;",
                 src: *asset,
                 draggable: false,
                 alt: text,

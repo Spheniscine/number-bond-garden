@@ -92,7 +92,7 @@ pub fn Hero() -> Element {
                     style: "position: absolute; top: 130rem; display: flex; flex-direction: row; font-size: 5rem; color: #fff; place-items: center;",
                     
                     div {
-                        style: "font-family: 'Noto Color Emoji'; font-size: 8rem;",
+                        style: "font-family: 'Noto Color Emoji'; font-size: 8rem; position: relative; top: -0.07em; left: -0.02em;",
                         Emoji { 
                             text: "{st.message.emoji()}"
                         }
